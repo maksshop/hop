@@ -1,0 +1,1425 @@
+<!-- Design reminder: „Редакционен компас“ — топъл учебен дневник с мастилено синьо, компасен кехлибар и асиметрична учебна траектория. -->
+<!doctype html>
+<html lang="bg">
+  <head>
+    <!-- Самостоятелен GitHub Pages пакет: HTML, CSS и JavaScript са в този файл. -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="theme-color" content="#10253f" />
+    <meta name="description" content="Интерактивен учебен път през седемте стратегии за богатство и щастие на Джим Рон." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="assets/seven-strategies-mark.png" />
+    <style>
+/* Design reminder: „Редакционен компас“ — асиметрична учебна траектория, топло книжно бяло, мастилено синьо и компасен кехлибар. */
+:root {
+  --paper: #f5f0e7;
+  --paper-deep: #e9dfd1;
+  --paper-white: #fcfaf5;
+  --ink: #10253f;
+  --ink-deep: #071728;
+  --ink-soft: #31506b;
+  --amber: #c7782c;
+  --amber-light: #f2c88e;
+  --moss: #6e8c78;
+  --moss-light: #dbe6de;
+  --slate: #8c9aa4;
+  --line: rgba(16, 37, 63, 0.16);
+  --line-light: rgba(245, 240, 231, 0.22);
+  --shadow: 0 22px 48px rgba(16, 37, 63, 0.13);
+  --serif: "Lora", Georgia, serif;
+  --sans: "Manrope", Arial, sans-serif;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: 0.26; z-index: 40; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.84' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E"); mix-blend-mode: multiply; }
+button, input, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { border: 0; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--amber); outline-offset: 4px; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+.skip-link { position: fixed; top: 1rem; left: 1rem; z-index: 60; padding: 0.75rem 1rem; transform: translateY(-180%); background: var(--amber); color: var(--ink-deep); font-weight: 800; }
+.skip-link:focus { transform: translateY(0); }
+
+.site-header { height: 84px; padding: 0 clamp(1.25rem, 4vw, 5rem); display: flex; align-items: center; justify-content: space-between; gap: 2rem; position: sticky; top: 0; z-index: 30; border-bottom: 1px solid transparent; transition: background-color 180ms var(--ease-out), backdrop-filter 180ms var(--ease-out), border-color 180ms var(--ease-out); }
+.site-header.is-scrolled { background: color-mix(in srgb, var(--paper) 90%, transparent); backdrop-filter: blur(16px); border-color: var(--line); }
+.brand { display: inline-flex; align-items: center; gap: 0.68rem; min-width: 176px; }
+.brand-mark { width: 39px; height: 39px; object-fit: contain; }
+.brand-wordmark { display: flex; flex-direction: column; font-size: 0.77rem; line-height: 0.95; letter-spacing: 0.04em; text-transform: uppercase; }
+.brand-wordmark strong { font-family: var(--serif); font-size: 1.4rem; font-style: italic; letter-spacing: -0.055em; text-transform: none; }
+.brand-wordmark span { color: var(--ink-soft); font-weight: 800; font-size: 0.61rem; letter-spacing: 0.13em; }
+.desktop-nav { display: flex; align-items: center; gap: 2rem; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.desktop-nav a { position: relative; padding: 0.5rem 0; }
+.desktop-nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 2px; background: var(--amber); transition: right 220ms var(--ease-out); }
+.desktop-nav a:hover::after { right: 0; }
+.header-actions { display: flex; align-items: center; gap: 0.5rem; min-width: 176px; justify-content: flex-end; }
+.icon-button { width: 40px; height: 40px; display: inline-grid; place-items: center; background: transparent; color: var(--ink); cursor: pointer; border: 1px solid var(--line); border-radius: 50%; font-size: 1.08rem; transition: background 160ms var(--ease-out), transform 160ms var(--ease-out), border-color 160ms var(--ease-out); }
+.icon-button:hover { background: var(--paper-deep); border-color: var(--amber); }
+.icon-button:active, .button:active, .text-button:active { transform: scale(0.97); }
+.menu-toggle { width: 42px; height: 42px; display: none; place-items: center; padding: 0; background: transparent; cursor: pointer; }
+.menu-toggle-lines { width: 24px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+.menu-toggle-lines i { height: 2px; display: block; background: var(--ink); transition: transform 180ms var(--ease-out); }
+.menu-toggle[aria-expanded="true"] .menu-toggle-lines i:first-child { transform: translateY(7px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle-lines i:last-child { transform: translateY(-7px) rotate(-45deg); }
+.mobile-nav { position: absolute; top: 84px; left: 0; right: 0; padding: 1rem 1.25rem 1.5rem; display: none; flex-direction: column; background: var(--paper-white); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
+.mobile-nav.is-open { display: flex; }
+.mobile-nav a { display: flex; justify-content: space-between; padding: 0.9rem 0; border-bottom: 1px solid var(--line); font-weight: 800; }
+.mobile-nav span { font-size: 0.72rem; color: var(--ink-soft); letter-spacing: 0.06em; text-transform: uppercase; }
+
+.hero { min-height: calc(100vh - 84px); padding: clamp(3rem, 7vw, 7rem) clamp(1.25rem, 8vw, 10rem) 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ""; width: 44vw; height: 44vw; min-width: 500px; min-height: 500px; position: absolute; top: -25vw; left: -20vw; border: 1px solid rgba(199, 120, 44, 0.25); border-radius: 50%; box-shadow: 0 0 0 42px rgba(199, 120, 44, 0.04), 0 0 0 130px rgba(199, 120, 44, 0.025); }
+.hero-grid { max-width: 1400px; min-height: 600px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(420px, 0.78fr); gap: clamp(2rem, 6vw, 9rem); align-items: center; position: relative; }
+.hero-copy { padding: 2rem 0 3rem; position: relative; z-index: 1; }
+.eyebrow, .section-kicker { margin: 0 0 1.2rem; display: flex; align-items: center; gap: 0.55rem; font-size: 0.67rem; line-height: 1.2; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-soft); }
+.eyebrow span:last-child { color: var(--amber); }
+.eyebrow-mark { width: 29px; height: 1px; display: inline-block; background: var(--amber); }
+h1, h2, h3, h4, p { overflow-wrap: anywhere; }
+h1, h2 { margin: 0; font-family: var(--serif); font-weight: 600; letter-spacing: -0.055em; line-height: 1.04; }
+h1 { max-width: 700px; font-size: clamp(3rem, 6.2vw, 6.8rem); }
+h1 em, h2 em { color: var(--amber); font-weight: 500; }
+.hero-lede { max-width: 570px; margin: 1.7rem 0 2.1rem; font-size: clamp(1rem, 1.35vw, 1.24rem); line-height: 1.7; color: var(--ink-soft); }
+.hero-actions, .closing-actions { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.button { min-height: 48px; padding: 0.78rem 1.05rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.7rem; cursor: pointer; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; transition: transform 160ms var(--ease-out), background 180ms var(--ease-out), color 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
+.button-primary { background: var(--ink); color: var(--paper-white); box-shadow: 0 8px 0 rgba(16, 37, 63, 0.2); }
+.button-primary:hover { background: var(--amber); color: var(--ink-deep); box-shadow: 0 8px 0 rgba(199, 120, 44, 0.25); }
+.button-amber { background: var(--amber); color: var(--ink-deep); box-shadow: 0 8px 0 rgba(199, 120, 44, 0.23); }
+.button-amber:hover { background: var(--amber-light); }
+.button-outline { width: 100%; border: 1px solid rgba(16, 37, 63, 0.28); background: transparent; color: var(--ink); }
+.button-outline:hover { background: var(--ink); color: var(--paper-white); }
+.button-dark { background: var(--ink); color: var(--paper-white); }
+.button-dark:hover { background: var(--amber); color: var(--ink-deep); }
+.text-button { padding: 0.55rem 0; background: none; color: var(--ink); font-family: var(--serif); font-size: 1rem; font-style: italic; cursor: pointer; border-bottom: 1px solid var(--amber); transition: color 160ms var(--ease-out); }
+.text-button:hover { color: var(--amber); }
+.hero-note { max-width: 390px; margin-top: 3.8rem; display: flex; align-items: flex-start; gap: 0.8rem; color: var(--ink-soft); font-size: 0.76rem; }
+.hero-note p { margin: 0; }
+.note-rule { width: 44px; height: 1px; margin-top: 0.64rem; flex: none; background: var(--amber); }
+.hero-visual { min-height: 540px; position: relative; display: flex; align-items: center; justify-content: flex-end; }
+.hero-image-frame { width: min(100%, 565px); position: relative; overflow: hidden; clip-path: polygon(10% 0, 100% 0, 100% 87%, 88% 100%, 0 100%, 0 12%); background: var(--ink); box-shadow: var(--shadow); }
+.hero-image-frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(125deg, rgba(16, 37, 63, 0.05), rgba(16, 37, 63, 0.35)); }
+.hero-image-frame img { width: 100%; height: min(45vw, 580px); min-height: 500px; object-fit: cover; object-position: center; }
+.compass-card { width: 187px; position: absolute; left: -3.4rem; bottom: 3.2rem; padding: 1.1rem 1.1rem 1rem; background: var(--paper-white); box-shadow: 11px 12px 0 var(--amber); }
+.compass-card-kicker, .compass-card-label { display: block; font-size: 0.61rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 800; color: var(--ink-soft); }
+.compass-card strong { margin: 0.25rem 0 0.15rem; display: block; font-family: var(--serif); font-size: 3rem; letter-spacing: -0.08em; line-height: 1; }
+.compass-card strong small { font-family: var(--sans); font-size: 1rem; letter-spacing: 0; color: var(--slate); }
+.mini-progress { height: 4px; margin-top: 0.9rem; background: var(--paper-deep); overflow: hidden; }
+.mini-progress span { display: block; width: 0%; height: 100%; background: var(--amber); transition: width 300ms var(--ease-out); }
+.vertical-caption { position: absolute; right: -2.5rem; bottom: 7.5rem; color: var(--ink-soft); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; transform: rotate(-90deg); transform-origin: left bottom; }
+.scroll-cue { position: absolute; left: clamp(1.25rem, 8vw, 10rem); bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; color: var(--ink-soft); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.scroll-cue i { width: 40px; height: 1px; display: block; position: relative; background: var(--ink); }
+.scroll-cue i::after { content: ""; width: 7px; height: 7px; position: absolute; right: 0; top: -3px; border-top: 1px solid var(--ink); border-right: 1px solid var(--ink); transform: rotate(45deg); }
+
+.manifesto-section, .strategies-section, .glossary-section, .practice-section, .reflection-section, .progress-section, .quiz-section, .closing-section { padding-left: clamp(1.25rem, 8vw, 10rem); padding-right: clamp(1.25rem, 8vw, 10rem); }
+.manifesto-section { padding-top: clamp(6rem, 12vw, 12rem); padding-bottom: clamp(6rem, 10vw, 10rem); display: grid; grid-template-columns: 105px minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); border-top: 1px solid var(--line); }
+.section-rail { display: flex; flex-direction: column; align-items: center; gap: 0.85rem; color: var(--ink-soft); font-size: 0.58rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+.section-rail span { writing-mode: vertical-rl; transform: rotate(180deg); }
+.section-rail i { width: 1px; height: 78px; display: block; background: var(--amber); }
+.section-rail b { color: var(--amber); font-size: 0.69rem; }
+.manifesto-content { max-width: 1060px; }
+.manifesto-content h2 { max-width: 950px; font-size: clamp(2.4rem, 4.3vw, 4.8rem); }
+.manifesto-bottom { max-width: 720px; margin: 2.5rem 0 0 auto; display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: end; }
+.manifesto-bottom p { margin: 0; color: var(--ink-soft); font-size: 1.02rem; }
+.inline-action { padding: 0; background: none; text-align: left; color: var(--ink); cursor: pointer; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.inline-action span { margin-left: 0.4rem; color: var(--amber); font-size: 1.2rem; }
+
+.strategies-section { padding-top: clamp(5rem, 8vw, 9rem); padding-bottom: clamp(6rem, 11vw, 11rem); background: var(--paper-white); position: relative; overflow: hidden; }
+.strategies-section::before { content: ""; width: 48vw; height: 48vw; position: absolute; right: -26vw; top: -25vw; border: 1px solid rgba(16, 37, 63, 0.11); border-radius: 50%; }
+.section-heading-layout { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 80px minmax(0, 1.35fr) minmax(200px, 0.48fr); gap: clamp(2rem, 4vw, 5rem); align-items: end; position: relative; z-index: 1; }
+.section-heading h2, .practice-heading h2, .reflection-content h2, .progress-main h2, .quiz-intro h2, .closing-section h2 { font-size: clamp(2.4rem, 4.3vw, 4.8rem); }
+.section-heading > p:last-child { max-width: 600px; margin: 1.3rem 0 0; color: var(--ink-soft); }
+.atlas-figure { margin: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end; }
+.atlas-figure img { width: 100%; max-height: 280px; object-fit: cover; filter: saturate(0.9); clip-path: polygon(10% 0, 100% 0, 100% 90%, 0 100%, 0 11%); }
+.atlas-figure figcaption { margin-top: 0.7rem; color: var(--ink-soft); font-size: 0.68rem; font-style: italic; }
+.strategy-list { max-width: 1180px; margin: clamp(3.5rem, 7vw, 7rem) 0 0 auto; position: relative; }
+.strategy-list::before { content: ""; width: 1px; position: absolute; left: 3.2rem; top: 0; bottom: 0; background: linear-gradient(to bottom, transparent, var(--amber) 5%, var(--amber) 95%, transparent); }
+.strategy-item { display: grid; grid-template-columns: 100px minmax(0, 1fr) auto; gap: 2rem; align-items: center; position: relative; padding: 1.55rem 0 1.6rem; border-bottom: 1px solid var(--line); }
+.strategy-item:first-child { border-top: 1px solid var(--line); }
+.strategy-item:hover { z-index: 1; }
+.strategy-item:hover .strategy-title { color: var(--amber); }
+.strategy-index { width: 64px; height: 64px; margin-left: 0.05rem; display: grid; place-items: center; position: relative; z-index: 1; background: var(--paper-white); border: 1px solid var(--ink); border-radius: 50%; font-family: var(--serif); font-size: 1.2rem; }
+.strategy-item.is-complete .strategy-index { background: var(--moss); border-color: var(--moss); color: var(--paper-white); }
+.strategy-item.is-complete .strategy-index::after { content: "✓"; position: absolute; font-family: var(--sans); font-size: 0.68rem; right: -1px; top: -7px; width: 20px; height: 20px; display: grid; place-items: center; background: var(--amber); color: var(--ink-deep); border-radius: 50%; }
+.strategy-main { display: grid; grid-template-columns: minmax(160px, 0.58fr) minmax(0, 1.2fr); gap: 2rem; align-items: center; }
+.strategy-meta { margin: 0 0 0.25rem; color: var(--amber); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
+.strategy-title { margin: 0; font-family: var(--serif); font-size: clamp(1.55rem, 2.2vw, 2.25rem); letter-spacing: -0.045em; transition: color 180ms var(--ease-out); }
+.strategy-description { margin: 0; color: var(--ink-soft); font-size: 0.87rem; }
+.strategy-open { width: 42px; height: 42px; display: grid; place-items: center; background: transparent; border: 1px solid var(--line); color: var(--ink); font-size: 1.3rem; cursor: pointer; transition: transform 180ms var(--ease-out), background 180ms var(--ease-out), color 180ms var(--ease-out); }
+.strategy-open:hover { transform: rotate(45deg); background: var(--ink); color: var(--paper-white); }
+
+.glossary-section { padding-top: clamp(5rem, 8vw, 8rem); padding-bottom: clamp(5rem, 8vw, 8rem); display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: clamp(2rem, 4vw, 5rem); background: var(--paper-deep); }
+.glossary-content { max-width: 1280px; width: 100%; margin: 0 auto; }
+.glossary-heading { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.7fr); gap: clamp(1.5rem, 5vw, 6rem); align-items: end; }
+.glossary-heading h2 { max-width: 720px; font-size: clamp(2.4rem, 4.3vw, 4.8rem); }
+.glossary-heading > p { max-width: 400px; margin: 0 0 0.25rem; color: var(--ink-soft); font-size: 0.88rem; }
+.glossary-grid { margin-top: clamp(2.6rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); }
+.glossary-term { min-height: 150px; padding: 1.2rem; background: var(--paper-white); position: relative; }
+.glossary-term::before { content: attr(data-index); position: absolute; right: 1rem; top: 0.85rem; color: rgba(199, 120, 44, 0.54); font-size: 0.56rem; font-weight: 800; letter-spacing: 0.12em; }
+.glossary-term h3 { max-width: calc(100% - 2.4rem); margin: 0 0 0.55rem; font-family: var(--serif); font-size: 1.15rem; letter-spacing: -0.035em; }
+.glossary-term p { margin: 0; color: var(--ink-soft); font-size: 0.75rem; line-height: 1.52; }
+
+.practice-section { padding-top: clamp(6rem, 9vw, 10rem); padding-bottom: clamp(6rem, 9vw, 10rem); background: var(--ink); color: var(--paper-white); }
+.practice-heading-wrap { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: clamp(2rem, 4vw, 5rem); }
+.rail-light { color: rgba(245, 240, 231, 0.7); }
+.rail-light i { background: var(--amber); }
+.practice-heading .section-kicker { color: var(--amber-light); }
+.practice-heading h2 { max-width: 920px; }
+.practice-heading h2 em { color: var(--amber-light); }
+.practice-feature-grid { max-width: 1280px; margin: clamp(3rem, 6vw, 6.4rem) 0 0 auto; display: grid; grid-template-columns: minmax(0, 1.28fr) minmax(280px, 0.72fr); align-items: stretch; }
+.goal-builder { padding: clamp(1.4rem, 3.5vw, 3.4rem); background: var(--paper-white); color: var(--ink); }
+.feature-heading { display: flex; align-items: flex-start; gap: 1rem; }
+.feature-number { width: 35px; height: 35px; flex: none; display: grid; place-items: center; background: var(--amber); color: var(--ink-deep); font-size: 0.65rem; font-weight: 800; border-radius: 50%; }
+.feature-label { margin: 0 0 0.2rem; color: var(--amber); font-size: 0.63rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+.feature-heading h3, .tool-title-row h3 { margin: 0; font-family: var(--serif); font-size: clamp(1.5rem, 2vw, 2.25rem); letter-spacing: -0.04em; line-height: 1.08; }
+.goal-form { margin-top: 2rem; display: grid; gap: 1.05rem; }
+.goal-form label, .budget-form label { display: grid; gap: 0.4rem; color: var(--ink-soft); font-size: 0.67rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.goal-form input, .budget-form input, .reflection-card textarea, .week-form input { width: 100%; border: 0; border-bottom: 1px solid rgba(16, 37, 63, 0.36); border-radius: 0; padding: 0.62rem 0; background: transparent; color: var(--ink); font-size: 0.91rem; letter-spacing: 0; text-transform: none; transition: border-color 180ms var(--ease-out); }
+.goal-form input:focus, .budget-form input:focus, .reflection-card textarea:focus, .week-form input:focus { border-color: var(--amber); outline: none; }
+.goal-form input::placeholder, .budget-form input::placeholder, .reflection-card textarea::placeholder, .week-form input::placeholder { color: rgba(49, 80, 107, 0.64); }
+.form-grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.goal-form .button { width: fit-content; margin-top: 0.55rem; }
+.goal-result { min-height: 184px; margin-top: 2.3rem; padding: 1.35rem 1.45rem; position: relative; background: var(--paper-deep); border-left: 4px solid var(--amber); overflow: hidden; }
+.goal-result::after { content: ""; width: 160px; height: 160px; position: absolute; right: -65px; bottom: -80px; border: 1px solid rgba(199, 120, 44, 0.55); border-radius: 50%; }
+.goal-result-corner { width: 25px; height: 25px; position: absolute; right: 0; top: 0; background: var(--paper-white); clip-path: polygon(0 0, 100% 100%, 100% 0); }
+.goal-result-label { margin: 0 0 0.5rem; position: relative; z-index: 1; color: var(--amber); font-size: 0.63rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.goal-result h4 { max-width: 490px; margin: 0; position: relative; z-index: 1; font-family: var(--serif); font-size: 1.35rem; line-height: 1.28; letter-spacing: -0.035em; }
+.goal-result-details { max-width: 500px; position: relative; z-index: 1; display: grid; gap: 0.65rem; }
+.goal-result-details p { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
+.goal-result-details strong { color: var(--ink); }
+.practice-editorial-image { min-height: 100%; position: relative; overflow: hidden; }
+.practice-editorial-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(7, 23, 40, 0.55)); }
+.practice-editorial-image img { width: 100%; height: 100%; min-height: 590px; object-fit: cover; }
+.image-caption-card { width: min(260px, calc(100% - 2rem)); padding: 1.2rem; position: absolute; z-index: 1; left: 1.4rem; bottom: 1.4rem; background: rgba(252, 250, 245, 0.95); color: var(--ink); }
+.image-caption-card span { display: block; color: var(--amber); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+.image-caption-card p { margin: 0.45rem 0 0; font-family: var(--serif); font-size: 1rem; font-style: italic; line-height: 1.35; }
+.tools-grid { max-width: 1280px; margin: 1.2rem 0 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(245, 240, 231, 0.23); }
+.tool-panel { min-height: 448px; padding: 1.75rem; background: var(--ink); position: relative; }
+.tool-title-row { display: flex; gap: 0.75rem; align-items: flex-start; }
+.tool-icon { width: 29px; height: 29px; display: grid; place-items: center; color: var(--ink-deep); background: var(--amber-light); border-radius: 50%; font-size: 0.95rem; }
+.tool-title-row p { margin: 0 0 0.18rem; color: var(--amber-light); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+.tool-title-row h3 { color: var(--paper-white); font-size: 1.45rem; }
+.tool-intro { min-height: 50px; margin: 1.1rem 0 1.4rem; color: rgba(245, 240, 231, 0.7); font-size: 0.76rem; }
+.compact-form { display: grid; gap: 0.9rem; }
+.range-field label { display: flex; justify-content: space-between; color: var(--paper-white); font-size: 0.69rem; font-weight: 700; }
+.range-field output { color: var(--amber-light); }
+input[type="range"] { width: 100%; height: 3px; margin-top: 0.45rem; appearance: none; background: rgba(245, 240, 231, 0.26); accent-color: var(--amber); }
+input[type="range"]::-webkit-slider-thumb { width: 14px; height: 14px; appearance: none; background: var(--amber); border: 2px solid var(--paper-white); border-radius: 50%; cursor: grab; }
+.time-result { margin-top: 1.8rem; }
+.time-result span, .budget-result span { display: block; color: rgba(245, 240, 231, 0.68); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.time-result strong { margin-top: 0.3rem; display: inline-block; font-family: var(--serif); color: var(--amber-light); font-size: 3rem; letter-spacing: -0.08em; line-height: 1; }
+.time-result small { margin-left: 0.3rem; color: rgba(245, 240, 231, 0.6); font-size: 0.66rem; }
+.time-meter { height: 4px; margin-top: 0.7rem; background: rgba(245, 240, 231, 0.22); }
+.time-meter span { display: block; width: 28%; height: 100%; background: var(--amber); transition: width 220ms var(--ease-out); }
+.budget-form { display: grid; gap: 0.9rem; }
+.budget-form label { position: relative; color: rgba(245, 240, 231, 0.78); }
+.budget-form label span { position: absolute; right: 0; bottom: 0.68rem; color: var(--amber-light); }
+.budget-form input { color: var(--paper-white); border-bottom-color: rgba(245, 240, 231, 0.34); }
+.budget-result { margin-top: 1.7rem; padding: 1rem 0 0; border-top: 1px solid rgba(245, 240, 231, 0.22); }
+.budget-result strong { display: block; margin: 0.22rem 0; color: var(--amber-light); font-family: var(--serif); font-size: 2.2rem; letter-spacing: -0.07em; line-height: 1; }
+.budget-result small { color: rgba(245, 240, 231, 0.63); font-size: 0.66rem; }
+.week-form { display: grid; gap: 0.6rem; }
+.week-form label { display: flex; align-items: center; gap: 0.6rem; }
+.week-form label span { width: 17px; color: var(--amber-light); font-size: 0.65rem; font-weight: 800; }
+.week-form input { color: var(--paper-white); border-bottom-color: rgba(245, 240, 231, 0.32); font-size: 0.8rem; }
+.week-form .button { margin-top: 1rem; }
+.week-saved { margin-top: 1.2rem; display: grid; gap: 0.45rem; }
+.saved-task { display: flex; align-items: center; gap: 0.55rem; color: rgba(245, 240, 231, 0.72); font-size: 0.72rem; }
+.saved-task input { accent-color: var(--amber); }
+.saved-task.is-done { color: var(--moss-light); text-decoration: line-through; }
+
+.reflection-section { padding-top: clamp(6rem, 10vw, 10rem); padding-bottom: clamp(6rem, 10vw, 10rem); display: grid; grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 10rem); align-items: center; background: var(--paper-deep); }
+.reflection-image { position: relative; }
+.reflection-image::before { content: ""; position: absolute; z-index: 1; left: -0.6rem; top: 1.2rem; width: 60%; height: 80%; border-left: 1px solid var(--amber); border-top: 1px solid var(--amber); }
+.reflection-image img { width: 100%; min-height: 430px; object-fit: cover; position: relative; }
+.reflection-content { max-width: 610px; }
+.reflection-card { margin-top: 2rem; padding: 1.5rem; background: var(--paper-white); box-shadow: 12px 13px 0 rgba(16, 37, 63, 0.1); }
+.reflection-topline { color: var(--amber); font-size: 0.61rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+.reflection-card > p { min-height: 55px; margin: 0.6rem 0 1.1rem; font-family: var(--serif); font-size: 1.25rem; font-style: italic; line-height: 1.38; letter-spacing: -0.03em; }
+.reflection-card textarea { min-height: 88px; resize: vertical; }
+.reflection-actions { margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.reflection-card small { display: block; margin-top: 0.9rem; color: var(--ink-soft); font-size: 0.63rem; }
+
+.progress-section { padding-top: clamp(6rem, 10vw, 10rem); padding-bottom: clamp(6rem, 10vw, 10rem); display: grid; grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr); gap: clamp(2rem, 7vw, 10rem); align-items: center; background: var(--paper-white); }
+.progress-visual { position: relative; }
+.progress-visual::before { content: ""; position: absolute; right: -1rem; top: -1rem; width: 47%; height: 72%; border: 1px solid var(--amber); }
+.progress-visual img { min-height: 350px; width: 100%; object-fit: cover; position: relative; }
+.progress-main { position: relative; }
+.rail-short { position: absolute; left: -6rem; top: 0.3rem; }
+.rail-short i { height: 44px; }
+.progress-main h2 { max-width: 730px; }
+.progress-overview { margin-top: 2.4rem; display: grid; grid-template-columns: auto minmax(120px, 1fr); gap: 1rem 1.7rem; align-items: center; }
+.overall-score { display: flex; align-items: center; gap: 0.55rem; }
+.overall-score strong { font-family: var(--serif); font-size: 3.8rem; line-height: 0.8; letter-spacing: -0.09em; }
+.overall-score span { color: var(--ink-soft); font-size: 0.7rem; line-height: 1.35; }
+.progress-bar-large { height: 8px; overflow: hidden; background: var(--paper-deep); }
+.progress-bar-large span { display: block; width: 0%; height: 100%; background: var(--amber); transition: width 300ms var(--ease-out); }
+.progress-overview p { grid-column: 1 / -1; max-width: 600px; margin: 0; color: var(--ink-soft); font-size: 0.86rem; }
+.completion-dots { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.65rem; }
+.completion-dot { width: 31px; height: 31px; display: grid; place-items: center; border: 1px solid var(--line); background: transparent; color: var(--ink-soft); font-size: 0.6rem; font-weight: 800; border-radius: 50%; }
+.completion-dot.is-complete { border-color: var(--moss); background: var(--moss); color: var(--paper-white); }
+
+.quiz-section { padding-top: clamp(6rem, 10vw, 10rem); padding-bottom: clamp(6rem, 10vw, 10rem); display: grid; grid-template-columns: minmax(250px, 0.7fr) minmax(0, 1.3fr); gap: clamp(2rem, 8vw, 11rem); background: var(--ink-deep); color: var(--paper-white); }
+.quiz-intro .section-kicker { color: var(--amber-light); }
+.quiz-intro h2 { font-size: clamp(2.4rem, 4.1vw, 4.4rem); }
+.quiz-intro > p:last-child { max-width: 370px; margin: 1.2rem 0 0; color: rgba(245, 240, 231, 0.67); }
+.quiz-form { display: grid; gap: 0; align-content: start; }
+.question-card { padding: 1.15rem 0 1.3rem; border-top: 1px solid rgba(245, 240, 231, 0.2); }
+.question-card:last-child { border-bottom: 1px solid rgba(245, 240, 231, 0.2); }
+.question-card legend { padding: 0; color: var(--paper-white); font-family: var(--serif); font-size: 1.06rem; line-height: 1.35; }
+.question-number { margin-right: 0.5rem; color: var(--amber-light); font-family: var(--sans); font-size: 0.58rem; letter-spacing: 0.12em; vertical-align: middle; }
+.answer-options { margin-top: 0.8rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.answer-option { min-height: 42px; padding: 0.65rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(245, 240, 231, 0.18); color: rgba(245, 240, 231, 0.72); font-size: 0.7rem; cursor: pointer; transition: background 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out); }
+.answer-option:hover { border-color: var(--amber); color: var(--paper-white); }
+.answer-option input { accent-color: var(--amber); }
+.quiz-form > .button { width: fit-content; margin-top: 1.5rem; }
+.quiz-result { grid-column: 2; min-height: 0; }
+.quiz-result:not(:empty) { margin-top: 1.5rem; padding: 1.25rem; border-left: 3px solid var(--amber); background: rgba(245, 240, 231, 0.06); }
+.quiz-result p { margin: 0; color: rgba(245, 240, 231, 0.8); font-size: 0.84rem; }
+.quiz-result strong { color: var(--amber-light); font-family: var(--serif); font-size: 1.25rem; }
+
+.closing-section { padding-top: clamp(6rem, 9vw, 9rem); padding-bottom: clamp(6rem, 9vw, 9rem); text-align: center; background: var(--paper); }
+.closing-section .section-kicker { justify-content: center; }
+.closing-section h2 { font-size: clamp(2.65rem, 5vw, 5.4rem); }
+.closing-actions { margin-top: 2rem; justify-content: center; }
+.site-footer { padding: 2.2rem clamp(1.25rem, 8vw, 10rem); display: grid; grid-template-columns: minmax(200px, 0.6fr) minmax(270px, 1.3fr) auto; gap: 2rem; align-items: center; background: var(--ink-deep); color: var(--paper-white); }
+.footer-brand { display: flex; align-items: center; gap: 0.75rem; }
+.footer-brand img { width: 38px; height: 38px; }
+.footer-brand p { margin: 0; display: grid; font-size: 0.72rem; }
+.footer-brand strong { font-family: var(--serif); font-size: 1.08rem; font-style: italic; }
+.footer-brand span { color: rgba(245, 240, 231, 0.58); font-size: 0.62rem; }
+.footer-source { max-width: 600px; margin: 0; color: rgba(245, 240, 231, 0.59); font-size: 0.66rem; }
+.footer-reset { justify-self: end; padding: 0; background: none; color: var(--amber-light); border-bottom: 1px solid rgba(242, 200, 142, 0.55); cursor: pointer; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+
+.strategy-dialog { width: min(920px, calc(100% - 1.5rem)); max-height: min(800px, calc(100dvh - 1.5rem)); padding: 0; color: var(--ink); background: var(--paper-white); border: 0; box-shadow: 0 30px 90px rgba(7, 23, 40, 0.45); overflow: auto; }
+.strategy-dialog::backdrop { background: rgba(7, 23, 40, 0.72); backdrop-filter: blur(5px); }
+.dialog-panel { padding: clamp(1.8rem, 6vw, 4.5rem); position: relative; }
+.dialog-close { width: 40px; height: 40px; position: absolute; right: 1.1rem; top: 1.1rem; display: grid; place-items: center; background: var(--ink); color: var(--paper-white); border-radius: 50%; font-size: 1.5rem; line-height: 1; cursor: pointer; transition: transform 160ms var(--ease-out), background 160ms var(--ease-out); }
+.dialog-close:hover { background: var(--amber); color: var(--ink-deep); transform: rotate(90deg); }
+.dialog-number { margin-bottom: 1.2rem; color: var(--amber); font-family: var(--serif); font-size: 1.05rem; font-style: italic; }
+.dialog-panel h2 { max-width: 650px; font-size: clamp(2.4rem, 5vw, 4.4rem); }
+.dialog-summary { max-width: 710px; margin: 1.3rem 0 2rem; color: var(--ink-soft); font-size: 1.02rem; }
+.compact-lesson { margin: 0 0 1.3rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.compact-lesson summary { min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--ink); cursor: pointer; list-style: none; font-size: 0.69rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.compact-lesson summary::-webkit-details-marker { display: none; }
+.compact-lesson summary::after { content: "+"; order: 3; color: var(--amber); font-size: 1.3rem; font-weight: 500; line-height: 1; }
+.compact-lesson[open] summary::after { content: "–"; }
+.compact-lesson summary small { margin-left: auto; color: var(--ink-soft); font-size: 0.58rem; letter-spacing: 0.08em; }
+.compact-lesson-body { padding: 0.2rem 0 1.25rem; display: grid; gap: 0.85rem; }
+.compact-lesson-body p { margin: 0; color: var(--ink-soft); font-size: 0.82rem; line-height: 1.55; }
+.compact-lesson-body p:first-child { color: var(--ink); }
+.lesson-check { margin-top: 0.15rem !important; padding: 0.75rem 0.85rem; background: var(--paper-deep); color: var(--ink) !important; font-family: var(--serif); font-size: 0.95rem !important; font-style: italic; line-height: 1.42 !important; }
+.lesson-check::before { content: "Провери се"; margin: 0 0.6rem 0 0; color: var(--amber); font-family: var(--sans); font-size: 0.56rem; font-style: normal; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; vertical-align: middle; }
+.deepen-lesson { margin-top: -1.3rem; border-top: 0; }
+.deep-dive-body { padding: 0.2rem 0 1.25rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+.deep-card { min-height: 142px; padding: 0.9rem; background: var(--paper-deep); border-left: 2px solid var(--amber); }
+.deep-card h4 { margin: 0 0 0.45rem; color: var(--ink); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.deep-card p { margin: 0; color: var(--ink-soft); font-size: 0.77rem; line-height: 1.5; }
+.lesson-video { margin: 0 0 1.3rem; padding: 1rem 1.1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: var(--ink); color: var(--paper-white); }
+.lesson-video p { margin: 0 0 0.2rem; color: var(--amber-light); font-size: 0.61rem; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase; }
+.lesson-video p span { margin-left: 0.35rem; color: rgba(245, 240, 231, 0.55); font-size: 0.54rem; }
+.lesson-video strong { display: block; max-width: 485px; font-family: var(--serif); font-size: 1.03rem; font-weight: 500; line-height: 1.25; letter-spacing: -0.025em; }
+.lesson-video small { display: block; margin-top: 0.25rem; color: rgba(245, 240, 231, 0.62); font-size: 0.61rem; }
+.video-link { padding: 0.67rem 0.78rem; flex: none; display: inline-flex; align-items: center; gap: 0.45rem; background: var(--amber); color: var(--ink-deep); font-size: 0.63rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; transition: transform 160ms var(--ease-out), background 160ms var(--ease-out); }
+.video-link:hover { background: var(--amber-light); }
+.video-link:active { transform: scale(0.97); }
+.lesson-mini-quiz { margin: 0 0 1.3rem; padding: 1.1rem; background: var(--paper-deep); border-left: 3px solid var(--moss); }
+.mini-quiz-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.mini-quiz-heading p { margin: 0 0 0.18rem; color: var(--moss); font-size: 0.59rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.mini-quiz-heading h3 { margin: 0; font-family: var(--serif); font-size: 1.25rem; letter-spacing: -0.035em; }
+.mini-quiz-heading > span { padding: 0.25rem 0.48rem; color: var(--ink-soft); border: 1px solid var(--line); font-size: 0.58rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
+.mini-quiz-form { margin-top: 0.9rem; }
+.mini-quiz-form fieldset { margin: 0; padding: 0; border: 0; }
+.mini-quiz-form legend { color: var(--ink); font-size: 0.83rem; font-weight: 700; }
+.mini-quiz-options { margin-top: 0.75rem; display: grid; gap: 0.48rem; }
+.mini-quiz-option { padding: 0.62rem 0.7rem; display: flex; align-items: flex-start; gap: 0.55rem; background: rgba(252, 250, 245, 0.68); border: 1px solid rgba(16, 37, 63, 0.13); color: var(--ink-soft); font-size: 0.73rem; line-height: 1.4; cursor: pointer; transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out); }
+.mini-quiz-option:hover { border-color: var(--amber); background: var(--paper-white); }
+.mini-quiz-option input { margin-top: 0.14rem; accent-color: var(--amber); }
+.mini-quiz-form .button { margin-top: 0.95rem; min-height: 40px; padding: 0.58rem 0.78rem; font-size: 0.62rem; }
+.mini-quiz-feedback:not(:empty) { margin-top: 0.85rem; padding: 0.7rem 0.8rem; background: rgba(252, 250, 245, 0.68); font-size: 0.74rem; line-height: 1.45; }
+.mini-quiz-feedback p { margin: 0; }
+.mini-quiz-feedback.is-correct { border-left: 3px solid var(--moss); color: var(--ink); }
+.mini-quiz-feedback.is-incorrect { border-left: 3px solid var(--amber); color: var(--ink-soft); }
+.mini-quiz-feedback strong { color: var(--ink); }
+.lesson-scenario { margin: 0 0 1.3rem; padding: 1.15rem; background: var(--ink); color: var(--paper-white); border-left: 3px solid var(--amber); }
+.scenario-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.scenario-heading p { margin: 0 0 0.18rem; color: var(--amber-light); font-size: 0.59rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.scenario-heading h3 { margin: 0; font-family: var(--serif); font-size: 1.3rem; letter-spacing: -0.035em; }
+.scenario-heading > span { padding: 0.25rem 0.48rem; color: rgba(245, 240, 231, 0.72); border: 1px solid rgba(245, 240, 231, 0.24); font-size: 0.58rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
+.scenario-form { margin-top: 0.9rem; }
+.scenario-form fieldset { margin: 0; padding: 0; border: 0; }
+.scenario-form legend { max-width: 720px; color: var(--paper-white); font-size: 0.84rem; font-weight: 700; line-height: 1.45; }
+.scenario-context { margin: 0.45rem 0 0; color: rgba(245, 240, 231, 0.7); font-size: 0.73rem; line-height: 1.45; }
+.scenario-options { margin-top: 0.8rem; display: grid; gap: 0.48rem; }
+.scenario-option { padding: 0.68rem 0.72rem; display: flex; align-items: flex-start; gap: 0.55rem; background: rgba(245, 240, 231, 0.05); border: 1px solid rgba(245, 240, 231, 0.21); color: rgba(245, 240, 231, 0.84); font-size: 0.74rem; line-height: 1.42; cursor: pointer; transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out), color 160ms var(--ease-out); }
+.scenario-option:hover { background: rgba(245, 240, 231, 0.11); border-color: var(--amber); color: var(--paper-white); }
+.scenario-option input { margin-top: 0.14rem; accent-color: var(--amber); }
+.scenario-form .button-outline { margin-top: 0.95rem; min-height: 40px; padding: 0.58rem 0.78rem; color: var(--paper-white); border-color: rgba(245, 240, 231, 0.5); font-size: 0.62rem; }
+.scenario-form .button-outline:hover { border-color: var(--amber); background: var(--amber); color: var(--ink-deep); }
+.scenario-feedback:not(:empty) { margin-top: 0.85rem; padding: 0.74rem 0.82rem; background: rgba(245, 240, 231, 0.1); font-size: 0.74rem; line-height: 1.48; }
+.scenario-feedback p { margin: 0; }
+.scenario-feedback.is-correct { border-left: 3px solid var(--moss-light); color: var(--paper-white); }
+.scenario-feedback.is-incorrect { border-left: 3px solid var(--amber); color: rgba(245, 240, 231, 0.82); }
+.scenario-feedback strong { color: var(--amber-light); }
+.dialog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+.dialog-grid section { padding: 1.35rem; background: var(--paper); }
+.dialog-grid section:first-child { grid-row: span 2; }
+.dialog-grid h3 { margin: 0 0 0.75rem; color: var(--amber); font-size: 0.63rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.dialog-grid p, .dialog-grid ul { margin: 0; color: var(--ink-soft); font-size: 0.81rem; }
+.dialog-grid ul { padding-left: 1.1rem; display: grid; gap: 0.55rem; }
+.dialog-caution { background: var(--paper-deep) !important; }
+.dialog-exercise { margin: 1.3rem 0 1.5rem; padding: 1.2rem 1.3rem; border-left: 4px solid var(--amber); background: var(--moss-light); }
+.dialog-exercise span { display: block; margin-bottom: 0.35rem; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.dialog-exercise p { margin: 0; font-family: var(--serif); font-size: 1.12rem; line-height: 1.4; }
+.dialog-complete.is-complete { background: var(--moss); color: var(--paper-white); box-shadow: 0 8px 0 rgba(110, 140, 120, 0.3); }
+.toast { padding: 0.82rem 1rem; position: fixed; z-index: 50; left: 50%; bottom: 1.4rem; max-width: calc(100% - 2rem); transform: translate(-50%, 140%); background: var(--ink); color: var(--paper-white); box-shadow: var(--shadow); font-size: 0.74rem; font-weight: 700; opacity: 0; transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out); }
+.toast.is-visible { transform: translate(-50%, 0); opacity: 1; }
+
+body.dark-theme { --paper: #0e1d30; --paper-deep: #152b42; --paper-white: #18324d; --ink: #f5f0e7; --ink-deep: #07111e; --ink-soft: #bdcbd5; --line: rgba(245, 240, 231, 0.18); --shadow: 0 22px 48px rgba(0, 0, 0, 0.32); }
+body.dark-theme .goal-result, body.dark-theme .goal-builder, body.dark-theme .reflection-card, body.dark-theme .strategy-item, body.dark-theme .atlas-figure, body.dark-theme .strategies-section, body.dark-theme .progress-section { background: var(--paper-white); }
+body.dark-theme .hero-image-frame::after { background: linear-gradient(125deg, rgba(7, 23, 40, 0.12), rgba(7, 23, 40, 0.5)); }
+body.dark-theme .site-header.is-scrolled { background: color-mix(in srgb, var(--paper) 90%, transparent); }
+body.dark-theme .progress-visual img { filter: brightness(0.8); }
+body.dark-theme .reflection-image img { filter: brightness(0.84); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-up { animation: reveal-up 620ms var(--ease-out) both; }
+  .delay-1 { animation-delay: 90ms; }
+  @keyframes reveal-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
+
+@media (max-width: 1050px) {
+  .hero { padding-left: clamp(1.25rem, 5vw, 4rem); padding-right: clamp(1.25rem, 5vw, 4rem); }
+  .hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.7fr); gap: 3rem; }
+  .manifesto-section, .strategies-section, .glossary-section, .practice-section, .reflection-section, .progress-section, .quiz-section, .closing-section { padding-left: clamp(1.25rem, 5vw, 4rem); padding-right: clamp(1.25rem, 5vw, 4rem); }
+  .section-heading-layout { grid-template-columns: 60px minmax(0, 1fr) 200px; gap: 2rem; }
+  .strategy-main { grid-template-columns: 200px minmax(0, 1fr); }
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .week-tool { grid-column: span 2; }
+  .glossary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site-footer { grid-template-columns: 1fr 1fr; }
+  .footer-reset { justify-self: start; }
+}
+
+@media (max-width: 760px) {
+  .site-header { height: 70px; padding: 0 1.1rem; }
+  .desktop-nav, .theme-toggle { display: none; }
+  .menu-toggle { display: grid; }
+  .brand { min-width: auto; }
+  .header-actions { min-width: auto; }
+  .mobile-nav { top: 70px; }
+  .glossary-section { grid-template-columns: 1fr; gap: 1.4rem; }
+  .glossary-heading { grid-template-columns: 1fr; gap: 1rem; }
+  .glossary-grid { grid-template-columns: 1fr; }
+  .glossary-term { min-height: auto; }
+  .mini-quiz-heading, .scenario-heading { align-items: flex-start; flex-direction: column; gap: 0.55rem; }
+  .hero { min-height: auto; padding-top: 2.6rem; padding-bottom: 5rem; }
+  .hero-grid { min-height: auto; grid-template-columns: 1fr; gap: 1rem; }
+  .hero-copy { padding: 0; }
+  .hero-note { margin-top: 2.3rem; }
+  .hero-visual { min-height: 410px; margin-top: 1rem; justify-content: center; }
+  .hero-image-frame { width: 100%; }
+  .hero-image-frame img { height: 430px; min-height: 0; }
+  .compass-card { left: 1rem; bottom: 0; }
+  .vertical-caption { display: none; }
+  .scroll-cue { display: none; }
+  .manifesto-section { padding-top: 4.5rem; padding-bottom: 4.5rem; grid-template-columns: 1fr; gap: 1.4rem; }
+  .section-rail { flex-direction: row; align-items: center; justify-content: flex-start; }
+  .section-rail span { writing-mode: horizontal-tb; transform: none; }
+  .section-rail i { width: 42px; height: 1px; }
+  .manifesto-bottom { margin-left: 0; grid-template-columns: 1fr; gap: 1rem; }
+  .section-heading-layout, .practice-heading-wrap { grid-template-columns: 1fr; gap: 1.4rem; }
+  .rail-long { order: 2; }
+  .atlas-figure { display: none; }
+  .strategy-list { margin-top: 3rem; }
+  .strategy-list::before { left: 1.25rem; }
+  .strategy-item { grid-template-columns: 58px minmax(0, 1fr) 38px; gap: 1rem; padding: 1.25rem 0; }
+  .strategy-index { width: 42px; height: 42px; font-size: 0.92rem; }
+  .strategy-main { grid-template-columns: 1fr; gap: 0.45rem; }
+  .strategy-title { font-size: 1.37rem; }
+  .strategy-description { font-size: 0.75rem; }
+  .strategy-open { width: 36px; height: 36px; }
+  .practice-feature-grid { grid-template-columns: 1fr; margin-top: 3rem; }
+  .practice-editorial-image { min-height: 260px; }
+  .practice-editorial-image img { min-height: 260px; height: 100%; }
+  .form-grid-two { grid-template-columns: 1fr; }
+  .goal-form .button { width: 100%; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .tool-panel, .week-tool { grid-column: auto; min-height: auto; }
+  .reflection-section, .progress-section, .quiz-section { grid-template-columns: 1fr; }
+  .reflection-image { max-height: 390px; overflow: hidden; }
+  .reflection-image img { min-height: 0; }
+  .progress-section { gap: 3rem; }
+  .progress-visual { max-width: 480px; }
+  .rail-short { position: static; margin-bottom: 1.3rem; }
+  .quiz-result { grid-column: auto; }
+  .answer-options { grid-template-columns: 1fr; }
+  .site-footer { grid-template-columns: 1fr; gap: 1.2rem; }
+  .footer-reset { justify-self: start; }
+  .dialog-grid { grid-template-columns: 1fr; }
+  .dialog-grid section:first-child { grid-row: auto; }
+  .deep-dive-body { grid-template-columns: 1fr; }
+  .deep-card { min-height: auto; }
+  .lesson-video { align-items: flex-start; flex-direction: column; }
+  .video-link { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 430px) {
+  h1 { font-size: 2.82rem; }
+  .brand-wordmark strong { font-size: 1.22rem; }
+  .brand-mark { width: 34px; height: 34px; }
+  .hero-actions { align-items: flex-start; flex-direction: column; }
+  .button-primary { width: 100%; }
+  .compass-card { width: 164px; padding: 0.9rem; box-shadow: 8px 9px 0 var(--amber); }
+  .compass-card strong { font-size: 2.45rem; }
+  .reflection-card { padding: 1.1rem; }
+}
+
+</style>
+    <title>Седем стратегии — учебен път</title>
+    <link rel="icon" type="image/png" href="assets/seven-strategies-mark.png" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Към съдържанието</a>
+    <div class="page-shell">
+      <header class="site-header" id="site-header">
+        <a class="brand" href="#начало" aria-label="Седем стратегии — начало">
+          <img class="brand-mark" src="assets/seven-strategies-mark.png" alt="" width="42" height="42" />
+          <span class="brand-wordmark"><strong>Седем</strong><span>стратегии</span></span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Основна навигация">
+          <a href="#уроци">Уроци</a>
+          <a href="#речник">Речник</a>
+          <a href="#практика">Практика</a>
+          <a href="#прогрес">Моят напредък</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="icon-button theme-toggle" type="button" aria-label="Включи тъмен режим" title="Смени темата">
+            <span aria-hidden="true">◐</span>
+          </button>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+            <span class="menu-toggle-lines" aria-hidden="true"><i></i><i></i></span>
+            <span class="sr-only">Отвори меню</span>
+          </button>
+        </div>
+
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Мобилна навигация">
+          <a href="#уроци">Уроци <span>01—07</span></a>
+          <a href="#речник">Речник <span>Понятия</span></a>
+          <a href="#практика">Практика <span>Инструменти</span></a>
+          <a href="#прогрес">Моят напредък <span>Локално</span></a>
+        </nav>
+      </header>
+
+      <main id="main-content">
+        <section class="hero" id="начало" aria-labelledby="hero-title">
+          <div class="hero-grid">
+            <div class="hero-copy reveal-up">
+              <p class="eyebrow"><span class="eyebrow-mark"></span> Учебна траектория <span>01—07</span></p>
+              <h1 id="hero-title">Не ти липсва потенциал.<br /><em>Липсва ти система.</em></h1>
+              <p class="hero-lede">Преведи седемте идеи на Джим Рон в малки, ясни действия за целите, времето, финансите и начина, по който живееш.</p>
+              <div class="hero-actions">
+                <a href="#уроци" class="button button-primary">Започни с първата стратегия <span aria-hidden="true">↘</span></a>
+                <button class="text-button js-open-reflection" type="button">Изтегли въпрос за днес <span aria-hidden="true">→</span></button>
+              </div>
+              <div class="hero-note">
+                <span class="note-rule"></span>
+                <p>Не е курс за бързи обещания. Това е работна тетрадка за последователност.</p>
+              </div>
+            </div>
+
+            <div class="hero-visual reveal-up delay-1" aria-hidden="true">
+              <div class="hero-image-frame">
+                <img src="assets/hero-editorial-compass.jpg" alt="" />
+              </div>
+              <div class="compass-card">
+                <span class="compass-card-kicker">Твоята посока</span>
+                <strong id="hero-progress-value">0 <small>/ 7</small></strong>
+                <span class="compass-card-label">стратегии завършени</span>
+                <div class="mini-progress"><span id="hero-progress-line"></span></div>
+              </div>
+              <span class="vertical-caption">Съзнателен напредък</span>
+            </div>
+          </div>
+          <a class="scroll-cue" href="#уроци" aria-label="Към уроците"><span>Скролирай</span><i aria-hidden="true"></i></a>
+        </section>
+
+        <section class="manifesto-section" aria-labelledby="manifesto-title">
+          <div class="section-rail" aria-hidden="true">
+            <span>Идея</span>
+            <i></i>
+            <b>01</b>
+          </div>
+          <div class="manifesto-content">
+            <p class="section-kicker">От книга към действие</p>
+            <h2 id="manifesto-title">„Лесно е да го направя“ или „лесно е да не го направя“?</h2>
+            <div class="manifesto-bottom">
+              <p>Тази разлика е малка днес и огромна след година. Затова всеки урок тук завършва с конкретна стъпка, която можеш да запишеш и да повториш.</p>
+              <button class="inline-action js-open-strategy" data-strategy-id="1" type="button">Виж как работи <span aria-hidden="true">↗</span></button>
+            </div>
+          </div>
+        </section>
+
+        <section class="strategies-section" id="уроци" aria-labelledby="strategies-title">
+          <div class="section-heading-layout">
+            <div class="section-rail rail-long" aria-hidden="true">
+              <span>Уроци</span>
+              <i></i>
+              <b>02</b>
+            </div>
+            <div class="section-heading">
+              <p class="section-kicker">Седем принципа. Един личен маршрут.</p>
+              <h2 id="strategies-title">Избери посоката,<br /><em>после направи следващата крачка.</em></h2>
+              <p>Можеш да започнеш от всяка стратегия. За по-подреден път започни от целите и продължи надолу по траекторията.</p>
+            </div>
+            <figure class="atlas-figure">
+              <img src="assets/strategy-atlas.jpg" alt="Абстрактна карта с маршрут между седем учебни теми" />
+              <figcaption>Траекторията е твоя. Не е състезание.</figcaption>
+            </figure>
+          </div>
+          <div class="strategy-list" id="strategy-list" aria-live="polite"></div>
+        </section>
+
+        <section class="glossary-section" id="речник" aria-labelledby="glossary-title">
+          <div class="section-rail" aria-hidden="true"><span>Речник</span><i></i><b>02A</b></div>
+          <div class="glossary-content">
+            <p class="section-kicker">Език за действие</p>
+            <div class="glossary-heading"><h2 id="glossary-title">Назови идеята.<br /><em>После я използвай.</em></h2><p>Кратки определения на понятията, които се срещат в книгата и в уроците. Те са обяснени за прилагане, не за зубрене.</p></div>
+            <div class="glossary-grid" id="glossary-grid"></div>
+          </div>
+        </section>
+
+        <section class="practice-section" id="практика" aria-labelledby="practice-title">
+          <div class="practice-heading-wrap">
+            <div class="section-rail rail-light" aria-hidden="true">
+              <span>Практика</span>
+              <i></i>
+              <b>03</b>
+            </div>
+            <div class="practice-heading">
+              <p class="section-kicker">Действие днес</p>
+              <h2 id="practice-title">Мисълта става полезна,<br /><em>когато ѝ дадеш място в календара.</em></h2>
+            </div>
+          </div>
+
+          <div class="practice-feature-grid">
+            <article class="goal-builder">
+              <div class="feature-heading">
+                <span class="feature-number">01</span>
+                <div>
+                  <p class="feature-label">Конструктор на цел</p>
+                  <h3>От желание към първа стъпка</h3>
+                </div>
+              </div>
+              <form id="goal-form" class="goal-form">
+                <label>Какво искаш да постигнеш?
+                  <input id="goal-name" name="goal-name" type="text" maxlength="110" placeholder="Например: да завърша портфолиото си" required />
+                </label>
+                <div class="form-grid-two">
+                  <label>Защо е важно?
+                    <input id="goal-why" name="goal-why" type="text" maxlength="110" placeholder="Какво ще промени?" required />
+                  </label>
+                  <label>Кога ще провериш напредъка?
+                    <input id="goal-date" name="goal-date" type="date" required />
+                  </label>
+                </div>
+                <label>Коя е първата крачка под 20 минути?
+                  <input id="goal-step" name="goal-step" type="text" maxlength="110" placeholder="Например: отварям папката и описвам 3 проекта" required />
+                </label>
+                <button class="button button-amber" type="submit">Създай карта на целта <span aria-hidden="true">↘</span></button>
+              </form>
+              <div class="goal-result is-empty" id="goal-result" aria-live="polite">
+                <span class="goal-result-corner"></span>
+                <p class="goal-result-label">Твоята карта ще се появи тук</p>
+                <h4>Няма малка първа стъпка, когато я направиш днес.</h4>
+              </div>
+            </article>
+
+            <div class="practice-editorial-image">
+              <img src="assets/practice-desk.jpg" alt="Работна маса с тетрадка и принадлежности за планиране" />
+              <div class="image-caption-card"><span>Работен принцип</span><p>Добрият план не е строг. Той дава място на важното.</p></div>
+            </div>
+          </div>
+
+          <div class="tools-grid" aria-label="Практически инструменти">
+            <article class="tool-panel time-tool">
+              <div class="tool-title-row"><span class="tool-icon" aria-hidden="true">◷</span><div><p>Време</p><h3>168 часа седмично</h3></div></div>
+              <p class="tool-intro">Виж колко пространство остава, преди да решиш, че „нямаш време“.</p>
+              <form id="time-form" class="compact-form">
+                <div class="range-field"><label for="time-sleep">Сън <output id="time-sleep-output">56 ч.</output></label><input id="time-sleep" type="range" min="28" max="70" value="56" /></div>
+                <div class="range-field"><label for="time-work">Работа / учене <output id="time-work-output">40 ч.</output></label><input id="time-work" type="range" min="0" max="80" value="40" /></div>
+                <div class="range-field"><label for="time-other">Задължения и пътуване <output id="time-other-output">24 ч.</output></label><input id="time-other" type="range" min="0" max="60" value="24" /></div>
+              </form>
+              <div class="time-result"><span>Свободно пространство</span><strong id="time-result-number">48</strong><small>часа / седмица</small><div class="time-meter"><span id="time-meter-fill"></span></div></div>
+            </article>
+
+            <article class="tool-panel budget-tool">
+              <div class="tool-title-row"><span class="tool-icon" aria-hidden="true">¤</span><div><p>Финанси</p><h3>Месечна картина</h3></div></div>
+              <p class="tool-intro">Ориентир за разговор със себе си, не финансов съвет.</p>
+              <form id="budget-form" class="budget-form">
+                <label>Нетни приходи <span>лв.</span><input id="income" type="number" min="0" step="50" inputmode="decimal" placeholder="0" /></label>
+                <label>Задължителни разходи <span>лв.</span><input id="fixed-costs" type="number" min="0" step="50" inputmode="decimal" placeholder="0" /></label>
+                <label>Гъвкави разходи <span>лв.</span><input id="variable-costs" type="number" min="0" step="50" inputmode="decimal" placeholder="0" /></label>
+              </form>
+              <div class="budget-result" aria-live="polite"><span>Остават за избор</span><strong id="budget-result-number">—</strong><small id="budget-result-note">Въведи стойности, за да видиш картината.</small></div>
+            </article>
+
+            <article class="tool-panel week-tool">
+              <div class="tool-title-row"><span class="tool-icon" aria-hidden="true">□</span><div><p>Фокус</p><h3>Три важни неща</h3></div></div>
+              <p class="tool-intro">Не запълвай списъка. Избери действия, които подкрепят най-важното ти сега.</p>
+              <form id="week-form" class="week-form">
+                <label><span>1</span><input type="text" maxlength="80" placeholder="Първи приоритет" /></label>
+                <label><span>2</span><input type="text" maxlength="80" placeholder="Втори приоритет" /></label>
+                <label><span>3</span><input type="text" maxlength="80" placeholder="Трети приоритет" /></label>
+                <button class="button button-outline" type="submit">Запази седмицата</button>
+              </form>
+              <div class="week-saved" id="week-saved" aria-live="polite"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="reflection-section" aria-labelledby="reflection-title">
+          <div class="reflection-image"><img src="assets/reflection-window.jpg" alt="Тиха стая с прозорец и линия, която води към светлина" /></div>
+          <div class="reflection-content">
+            <p class="section-kicker">Пауза за размисъл</p>
+            <h2 id="reflection-title">Една добра<br /><em>бележка към себе си.</em></h2>
+            <div class="reflection-card">
+              <span class="reflection-topline">Въпрос за днес</span>
+              <p id="reflection-prompt">Кое малко действие вече знаеш, че ще направи деня ти по-добър?</p>
+              <textarea id="reflection-note" rows="3" maxlength="600" placeholder="Напиши без да редактираш мисълта си…"></textarea>
+              <div class="reflection-actions"><button class="button button-dark" id="save-reflection" type="button">Запази бележката</button><button class="icon-button" id="new-reflection" type="button" aria-label="Нов въпрос">↻</button></div>
+              <small id="reflection-status" aria-live="polite">Бележките остават само на това устройство.</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="progress-section" id="прогрес" aria-labelledby="progress-title">
+          <div class="progress-visual"><img src="assets/progress-arch.jpg" alt="Седем издигащи се хартиени арки като символ на постепенен напредък" /></div>
+          <div class="progress-main">
+            <div class="section-rail rail-short" aria-hidden="true"><span>Напредък</span><i></i><b>04</b></div>
+            <p class="section-kicker">Събери нишките</p>
+            <h2 id="progress-title">Не търси перфектен ден.<br /><em>Потърси следващ верен избор.</em></h2>
+            <div class="progress-overview">
+              <div class="overall-score"><strong id="overall-completed">0</strong><span>от 7<br />урока</span></div>
+              <div class="progress-bar-large" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" aria-label="Завършени стратегии"><span id="overall-progress-line"></span></div>
+              <p id="progress-message">Отвори първата стратегия, за да направиш началото видимо.</p>
+            </div>
+            <div class="completion-dots" id="completion-dots" aria-label="Статус на седемте стратегии"></div>
+          </div>
+        </section>
+
+        <section class="quiz-section" aria-labelledby="quiz-title">
+          <div class="quiz-intro">
+            <p class="section-kicker">Кратка самооценка</p>
+            <h2 id="quiz-title">Какво вече можеш<br />да приложиш?</h2>
+            <p>Не е изпит. Отговорите ти само показват към коя идея може да се върнеш сега.</p>
+          </div>
+          <form id="quiz-form" class="quiz-form"></form>
+          <div class="quiz-result" id="quiz-result" aria-live="polite"></div>
+        </section>
+
+        <section class="closing-section">
+          <p class="section-kicker">Твоят следващ ход</p>
+          <h2>Избери една стратегия.<br /><em>Дай ѝ място още днес.</em></h2>
+          <div class="closing-actions"><a href="#уроци" class="button button-primary">Към учебната траектория <span aria-hidden="true">↗</span></a><button class="text-button js-open-reflection" type="button">Напиши една мисъл <span aria-hidden="true">→</span></button></div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-brand"><img src="assets/seven-strategies-mark.png" alt="" /><p><strong>Седем стратегии</strong><span>Интерактивна учебна тетрадка</span></p></div>
+        <p class="footer-source">Създадено като образователна интерпретация по предоставеното българско издание на „Седем стратегии за богатство и щастие“ от Джим Рон. Не представлява пълно или дословно цифрово копие на книгата.</p>
+        <button class="footer-reset" id="reset-progress" type="button">Нулирай локалния прогрес</button>
+      </footer>
+    </div>
+
+    <dialog class="strategy-dialog" id="strategy-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-panel">
+        <button class="dialog-close" type="button" aria-label="Затвори урока">×</button>
+        <div class="dialog-number" id="dialog-number">01</div>
+        <p class="section-kicker" id="dialog-kicker">Стратегия</p>
+        <h2 id="dialog-title"></h2>
+        <p class="dialog-summary" id="dialog-summary"></p>
+        <details class="compact-lesson" open>
+          <summary><span>Кратък урок от книгата</span><small>~ 2 мин.</small></summary>
+          <div class="compact-lesson-body" id="dialog-deep-dive"></div>
+        </details>
+        <details class="compact-lesson deepen-lesson">
+          <summary><span>Задълбочи идеята</span><small>Още от книгата</small></summary>
+          <div class="deep-dive-body" id="dialog-extended-learning"></div>
+        </details>
+        <section class="lesson-video" aria-labelledby="video-title">
+          <div>
+            <p id="video-title">Гледай и учи <span>Видео на английски</span></p>
+            <strong id="dialog-video-title"></strong>
+            <small id="dialog-video-duration"></small>
+          </div>
+          <a class="video-link" id="dialog-video-link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">Отвори в YouTube <span aria-hidden="true">↗</span></a>
+        </section>
+        <section class="lesson-mini-quiz" aria-labelledby="dialog-quiz-title">
+          <div class="mini-quiz-heading"><div><p>Провери се</p><h3 id="dialog-quiz-title">Мини тест към урока</h3></div><span>1 въпрос</span></div>
+          <form class="mini-quiz-form" id="dialog-quiz-form" novalidate></form>
+          <div class="mini-quiz-feedback" id="dialog-quiz-feedback" aria-live="polite"></div>
+        </section>
+        <section class="lesson-scenario" aria-labelledby="dialog-scenario-title">
+          <div class="scenario-heading"><div><p id="dialog-scenario-type">Практически казус</p><h3 id="dialog-scenario-title">Как би постъпил?</h3></div><span>1 ситуация</span></div>
+          <form class="scenario-form" id="dialog-scenario-form" novalidate></form>
+          <div class="scenario-feedback" id="dialog-scenario-feedback" aria-live="polite"></div>
+        </section>
+        <div class="dialog-grid">
+          <section><h3>Запомни</h3><ul id="dialog-points"></ul></section>
+          <section><h3>Пример от деня</h3><p id="dialog-example"></p></section>
+          <section class="dialog-caution"><h3>Внимавай за</h3><p id="dialog-caution"></p></section>
+        </div>
+        <div class="dialog-exercise"><span>Малко упражнение</span><p id="dialog-exercise"></p></div>
+        <button class="button button-primary dialog-complete" id="dialog-complete" type="button">Маркирай като завършено <span aria-hidden="true">✓</span></button>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-message"></span></div>
+    <script>
+/* Design reminder: „Редакционен компас“ — всеки интерактивен елемент превръща идея от урока в малко, видимо действие. */
+const STORAGE_KEY = "sevenStrategiesLearning.v1";
+
+const strategies = [
+  {
+    id: 1,
+    title: "Освободете силата на целите",
+    short: "Желанието получава посока, когато го назовеш, измериш и свържеш с първа крачка.",
+    summary: "Целта не е просто списък с мечти. Тя е решение, което прави следващите ти избори по-ясни.",
+    points: ["Разграничи желанието от конкретното решение.", "Напиши как изглежда резултатът и защо има значение.", "Избери първо действие, което не изисква специално настроение."],
+    example: "Вместо „искам да уча повече“, избери „до неделя ще завърша два урока и ще запиша три въпроса, които още не разбирам“.",
+    caution: "Да събираш красиви цели, без да им даваш време в седмицата си.",
+    exercise: "Отвори конструктора на цел и напиши една цел, причина, дата за проверка и първа стъпка под 20 минути."
+  },
+  {
+    id: 2,
+    title: "Търсете знанието",
+    short: "Полезното знание е онова, което променя въпросите ти и после поведението ти.",
+    summary: "Ученето не е трупане на информация. То е навик да наблюдаваш, да питаш и да превръщаш добрата идея в опит.",
+    points: ["Търси идеи от книги, разговори и собствените си резултати.", "Води си кратки бележки: какво научих, какво ще опитам.", "Дай шанс на една идея да бъде приложена, преди да я оцениш."],
+    example: "След подкаст за преговори не търси още десет епизода. Подготви един по-добър въпрос за следващия си разговор.",
+    caution: "Да замениш ученето с безкрайно потребление на съвети.",
+    exercise: "Избери едно нещо, което научи тази седмица, и запиши един разговор или задача, в която ще го изпробваш."
+  },
+  {
+    id: 3,
+    title: "Научете се как да се променяте",
+    short: "Резултатите се променят по-устойчиво, когато промениш собствените си умения и стандарти.",
+    summary: "Личното развитие не е моментно настроение. То е съзнателна работа върху способностите, отношението и малките повторения.",
+    points: ["Попитай кое умение би направило следващата ти задача по-лесна.", "Избирай малки повторения пред големи обещания.", "Оценявай процеса: какъв човек ставаш, докато правиш това."],
+    example: "Ако искаш по-спокойни срещи, упражни предварително една ясна структура: цел, контекст, въпрос, следваща стъпка.",
+    caution: "Да очакваш различен резултат, без да измениш начина, по който подхождаш.",
+    exercise: "Назови едно умение, което ще подобри най-много следващия ти месец. Запиши 15-минутна практика за него."
+  },
+  {
+    id: 4,
+    title: "Контролирайте собствените си финанси",
+    short: "Финансовата яснота започва с това да виждаш изборите си, преди да ги оправдаваш.",
+    summary: "Контролът не означава лишение. Означава да познаваш паричния си поток, за да можеш да решаваш съзнателно.",
+    points: ["Раздели приходите, задължителните и гъвкавите разходи.", "Провери какво остава за цели, спокойствие или избор.", "Преглеждай картината редовно, без срам и без драматизиране."],
+    example: "Ако месечно ти остават 180 лв., можеш първо да решиш каква част ще запазиш, вместо да се чудиш в края на месеца къде са изчезнали.",
+    caution: "Да избягваш числата, защото не изглеждат така, както искаш.",
+    exercise: "Въведи приблизителни месечни стойности в инструмента „Месечна картина“ и наблюдавай, а не съди резултата."
+  },
+  {
+    id: 5,
+    title: "Станете господари на времето си",
+    short: "Преди да планираш още, виж къде вече отива седмицата ти.",
+    summary: "Времето не се управлява като предмет. Управляваш вниманието си, поетите ангажименти и мястото, което пазиш за важното.",
+    points: ["Започни със седмична картина, не с идеален дневен график.", "Дай име на трите си важни задачи.", "Остави резерв, защото истинският живот не е календар без прекъсвания."],
+    example: "Когато предварително пазиш два 45-минутни блока за учене, не разчиташ на оставащото след вечерната умора.",
+    caution: "Да запълниш всяка свободна минута и после да наречеш това продуктивност.",
+    exercise: "Премести плъзгачите в „168 часа седмично“ и избери един час, който ще защитиш за нещо важно."
+  },
+  {
+    id: 6,
+    title: "Осигурявайте си обкръжение от победители",
+    short: "Средата не взема решенията вместо теб, но всеки ден подсказва какво е нормално.",
+    summary: "Хората около нас влияят на въпросите, стандартите и смелостта ни. Избирай общуването си с внимание и го подхранвай взаимно.",
+    points: ["Наблюдавай кои разговори повишават стандарта ти.", "Търси хора, с които можеш да обменяш конкретна обратна връзка.", "Бъди и ти човекът, който окуражава действие, а не само оплакване."],
+    example: "Вместо да казваш „някой ден ще започна“, сподели с приятел какво ще направиш до петък и му пиши, когато е готово.",
+    caution: "Да търсиш единствено одобрение вместо честни и полезни разговори.",
+    exercise: "Изпрати кратко съобщение на един човек, с когото искаш да обмените цел за идната седмица."
+  },
+  {
+    id: 7,
+    title: "Овладейте изкуството да живеете добре",
+    short: "Добрият живот не е отложена награда. Той е начинът, по който присъстваш и докато градиш.",
+    summary: "Амбицията и радостта не са противоположни. Успешният ритъм включва работа, отношения, признателност и способност да забелязваш малките добри неща.",
+    points: ["Не измервай стойността на деня само с резултата му.", "Оставяй място за хората, любопитството и благодарността.", "Прави избори, които можеш да уважаваш и след като еуфорията отмине."],
+    example: "След трудна седмица не чакай ваканцията, за да се погрижиш за себе си: планирай един разговор, разходка или час без екран.",
+    caution: "Да преследваш успех, който няма време да бъде преживян.",
+    exercise: "Довърши изречението в бележника: „Тази седмица ще живея по-добре, като…“"
+  }
+];
+
+const lessonNotes = {
+  1: {
+    paragraphs: [
+      "Първите глави разглеждат целите като мост между мечта и действие. Идеята не е да имаш дълъг списък за показване, а да дадеш ясен образ на бъдещето си: какво искаш, защо го искаш и с каква промяна в себе си ще го постигнеш.",
+      "Книгата предлага да мислиш едновременно в близък и далечен хоризонт. Кратките цели изграждат увереност чрез завършени стъпки, а по-далечните ти помагат да не замениш посоката с поредната спешна задача.",
+      "Провери веднъж седмично дали целта още е твоя и дали има място в реалния ти календар. Ако не можеш да назовеш причина, тя вероятно е желание за момент, а не посока за работа."
+    ],
+    check: "Можеш ли да кажеш каква способност ще развиеш, докато работиш по тази цел?"
+  },
+  2: {
+    paragraphs: [
+      "В главата за знанието Рон различава информацията от мъдростта. Мъдростта се появява, когато събереш идея, наблюдение и собствен опит — после отделиш време да видиш какво е сработило.",
+      "Той препоръчва да улавяш идеи в дневник: от книги, разговори, наблюдение на хора и лични преживявания. Важното не е да имаш много бележки, а да връщаш една полезна бележка обратно в следващото си действие.",
+      "Практичен ритъм: избери тема, учи малко, запиши един извод и го приложи в рамките на седмицата. Това прави ученето активно, а не просто приятно потребление."
+    ],
+    check: "Коя идея от последната книга, разговор или грешка можеш да приложиш още тази седмица?"
+  },
+  3: {
+    paragraphs: [
+      "Личното развитие е представено като промяна на стойността, която носиш, а не само като желание за по-добър резултат. Въпросът е не само „какво ще получа“, а „какъв човек ще стана, докато го постигам“.",
+      "Книгата използва метафората за сезоните: трудният период е време за подготовка, благоприятният — за действие, периодът на грижа — за защита на създаденото, а резултатът — за честен преглед. Сезоните не се отменят; променя се отговорът ни към тях.",
+      "Три спънки се повтарят: отлагане, обвиняване и оправдания. Вместо да ги използваш като етикети за себе си, ги наблюдавай като сигнали, че е нужна по-малка следваща стъпка и повече лична отговорност."
+    ],
+    check: "Кое от трите — отлагане, обвиняване или оправдание — най-често отнема енергията ти?"
+  },
+  4: {
+    paragraphs: [
+      "Финансовата глава поставя яснотата пред размера на дохода. Авторът насърчава първо да видиш паричния поток и да решиш каква част е за живот, бъдеща сигурност, създаване на стойност и споделяне.",
+      "Като лична рамка Рон предлага правилото 70/30: да се живее с до 70% от дохода след данъци, а останалото да се насочва към даряване, капиталовложение и спестяване. Това е исторически авторски модел за размисъл, не персонален финансов съвет и не универсална формула.",
+      "Основният учебен въпрос е: „Какво прави настоящият ми план с всяка единица доход?“ Малките редовни решения създават по-полезен навик от чакането на голяма заплата."
+    ],
+    check: "Коя една категория в бюджета ти иска повече яснота: разходи, резерв, инвестиция или даряване?"
+  },
+  5: {
+    paragraphs: [
+      "Времето е описано като еднакъв дневен ресурс за всички, който не може да бъде взет назаем от утрешния ден. Затова въпросът е не как да направиш всичко, а какво съзнателно ще оставиш извън деня си.",
+      "Книгата сравнява четири подхода: носене по течението, работа в твърди рамки, работохолизъм и по-зрял подход, който разпределя време за работа, отношения, почивка и дори свободно мислене. Тук целта не е максимален брой часове, а по-голяма стойност от важните часове.",
+      "Полезни инструменти са учтивото „не“, работа без разсейване, познаване на личните силни часове и визуален план за по-големите задачи. Не смесвай отдиха с работата — така и двете губят качество."
+    ],
+    check: "На кое задължение можеш да кажеш любезно „не“, за да защитиш един важен час тази седмица?"
+  },
+  6: {
+    paragraphs: [
+      "Главата за общуването те подканва да наблюдаваш влиянието, а не да поставяш етикети на хората. Въпросите са прости: с кого прекарваш време, как те кара това общуване да мислиш и действаш, и приближава ли те до посоката ти?",
+      "Когато дадено влияние е трайно разрушително, книгата предлага първо да го ограничиш, а когато можеш — да разшириш контакта си с хора, които имат умения, ценности или култура, от които искаш да учиш.",
+      "Това не означава да търсиш „идеални“ хора. Означава да избираш разговори, книги, професионални общности и приятелства, след които имаш повече яснота, смелост и отговорност."
+    ],
+    check: "Кое общуване през тази седмица ще подхрани посоката ти, вместо само да запълни време?"
+  },
+  7: {
+    paragraphs: [
+      "Последната стратегия разширява смисъла на успеха: да печелиш не е достатъчно, ако не умееш да живееш с внимание, щедрост и вкус. Начинът на живот започва не след „някой ден“, а с малки решения за качеството на преживяванията сега.",
+      "Книгата противопоставя количеството на стойността: можеш да избираш по-малко, но по-смислено — среща, културно преживяване, добър разговор, благодарност или време за човек, който е важен за теб. Това не изисква непременно голям разход.",
+      "Търсенето на по-добър живот остава свързано с действие. Най-полезният въпрос тук е: какво може да направиш днес, за да изживееш деня по-пълно, без да отлагаш радостта за неопределено бъдеще?"
+    ],
+    check: "Какъв малък избор на качество можеш да направиш днес за себе си или за близък човек?"
+  }
+};
+
+const lessonVideos = {
+  1: { title: "Unleashing the Power of Goals", duration: "27 мин.", url: "https://www.youtube.com/watch?v=OuPTkb_RHQ4" },
+  2: { title: "Seeking Knowledge", duration: "26 мин.", url: "https://www.youtube.com/watch?v=UodsoqGt5H4" },
+  3: { title: "The Miracle of Personal Development", duration: "49 мин.", url: "https://www.youtube.com/watch?v=rOaXqFWSoag" },
+  4: { title: "Control Your Finances", duration: "47 мин.", url: "https://www.youtube.com/watch?v=evplor-EYqU" },
+  5: { title: "Mastering Time", duration: "35 мин.", url: "https://www.youtube.com/watch?v=3QcM4XLJG1o" },
+  6: { title: "Surround Yourself with Winners", duration: "21 мин.", url: "https://www.youtube.com/watch?v=0piavwaXHL8" },
+  7: { title: "Mastering the Art of Living Well", duration: "37 мин.", url: "https://www.youtube.com/watch?v=GCj2u1jmq4I" }
+};
+
+const extendedLessons = {
+  1: [
+    { title: "От мечта към чертеж", text: "В книгата мечтата е посока, а целта е нейната работна форма. Опиши желаното бъдеще достатъчно ясно, за да разпознаеш решенията, които те приближават до него." },
+    { title: "Причините преди метода", text: "Рон поставя въпроса „Защо?“ пред „Как?“. Когато причината е лична и конкретна — семейство, признание, победа или принос — по-лесно търсиш отговори и издържаш на трудните дни." },
+    { title: "Учи чрез преглед", text: "Не оставяй целите като веднъж написан списък. Веднъж седмично сравни посоката с календара си и реши каква малка стъпка ще направи следващата седмица реална." }
+  ],
+  2: [
+    { title: "Търси целенасочено", text: "Авторът не представя знанието като случайно попадение. Първо си назоваваш какво трябва да научиш за целта си, после избираш източник и търсиш съзнателно." },
+    { title: "Улови и върни", text: "Добрата идея има кратък живот, ако не я запишеш. Води дневник или бележник за наблюдения, книги, разговори и грешки; върни се към една бележка, когато планираш следващ ход." },
+    { title: "Два източника на мъдрост", text: "Учи и от собствения, и от чуждия опит. В края на деня попитай какво е сработило; при книга, видео или разговор търси както пример за следване, така и предупреждение за избягване." }
+  ],
+  3: [
+    { title: "Ставането преди получаването", text: "Основната идея тук е, че резултатите често следват способностите. Вместо да чакаш външната ситуация да се подобри, избери умение, стандарт или навик, който повишава стойността, която носиш." },
+    { title: "Стойност, не повече часове", text: "Според Рон времето е ограничено, но стойността на един час може да се развива. Практически въпрос: кое конкретно умение би направило работата ти по-полезна, по-надеждна или по-ясна за другите?" },
+    { title: "Сезоните като модел", text: "Трудният период не е провал на плана, а „зима“ за подготовка. В период на възможности действай, в период на натиск пази постигнатото, а след резултатите направи честен преглед какво да посееш отново." }
+  ],
+  4: [
+    { title: "Финансите като обратна връзка", text: "Книгата предлага да гледаш числата като сигнал, а не като присъда. Разликата между доходи и разходи показва къде планът има нужда от промяна; първата цел е яснота, не перфектен бюджет." },
+    { title: "Планът преди сумата", text: "Авторът настоява, че решаващ е начинът на разпределение, а не само размерът на дохода. Неговото правило 70/30 е исторически авторски модел за размисъл, а не лична инвестиционна препоръка." },
+    { title: "Навикът преди мащаба", text: "Темите за спестяване, инвестиция и даряване се представят като редовни навици. Приложи ги разумно според собствените си обстоятелства и използвай квалифициран съвет за конкретни финансови решения." }
+  ],
+  5: [
+    { title: "Ти или денят", text: "Главата започва с избора кой ръководи деня. Малката, но важна практика е да преценяваш новите ангажименти преди да приемеш, а не след като вече са изяли фокуса ти." },
+    { title: "Два чисти режима", text: "Рон отделя пълното присъствие в работата от пълното присъствие в почивката. Когато смесиш двете, губиш и завършената работа, и възстановяването; дай начало и край на важния блок време." },
+    { title: "Работи с естествения си ритъм", text: "Наблюдавай кога мислиш най-ясно и запази този период за най-трудната задача. Приеми слабостите като информация: ако нещо трайно не ти се отдава, промени процеса или потърси помощ, вместо да разчиташ само на воля." }
+  ],
+  6: [
+    { title: "Влиянието е ежедневно", text: "Обкръжението не решава вместо теб, но непрекъснато подсказва кое е нормално. Авторът предлага да наблюдаваш как хората около теб влияят на мислите, разговорите, навиците и посоката ти." },
+    { title: "Общуване с цел", text: "Не става дума да „използваш“ хората, а съзнателно да търсиш разговори, общности и ментори, от които да учиш. Един въпрос, подготвен за уважителен разговор, може да е по-полезен от безкрайно скролване." },
+    { title: "Разшири кръга постепенно", text: "Новото обкръжение не изисква внезапна смяна на целия живот. Започни с книга, лекция, професионална среща или човек, чиято дисциплина и ценности уважаваш, после направи малък опит за контакт." }
+  ],
+  7: [
+    { title: "Научи се да живееш сега", text: "Финалната глава предупреждава да не отлагаш качеството на живота за момента, в който „имаш достатъчно“. Според книгата стилът се упражнява с малки, осъзнати решения още при ограничени средства." },
+    { title: "Качество пред количество", text: "Избери по-малко, но по-смислено: преживяване, разговор, музика, благодарност или културно любопитство. Това не е призив за разходи, а за по-ясни ценности и внимание към онова, което остава като спомен." },
+    { title: "Радостта като умение", text: "Рон свързва щастието с практика, а не с пасивно чакане на повече. Избери едно малко действие днес, което показва щедрост, вкус или грижа, и го наблюдавай като част от своя личен стил на живот." }
+  ]
+};
+
+const lessonMiniQuizzes = {
+  1: { question: "Кое прави една мечта използваема като цел?", options: ["Да я пазиш обща, за да не се разочароваш", "Да я свържеш с причина, дата за преглед и малка първа стъпка", "Да чакаш първо да имаш повече свободно време"], answer: 1, explanation: "В книгата целта е работната форма на мечтата: ясна посока, лична причина и действие, което може да започне сега." },
+  2: { question: "Кое превръща информацията в лично знание?", options: ["Да събереш още източници по същата тема", "Да запишеш идея, да я приложиш и после да прегледаш резултата", "Да запомниш колкото се може повече цитати"], answer: 1, explanation: "Рон свързва мъдростта с улавяне на идеи, размисъл и приложение — не само с консумиране на информация." },
+  3: { question: "Къде според урока е най-полезно да насочиш усилието си?", options: ["Към искане условията да се променят по-бързо", "Към развиване на умение или стандарт, който увеличава стойността ти", "Към сравнение с хора, които вече са по-напред"], answer: 1, explanation: "Личното развитие поставя въпроса „какъв човек ставам?“. Уменията и стандартите правят следващия резултат по-устойчив." },
+  4: { question: "Коя е разумната първа стъпка към финансова яснота?", options: ["Да видиш честно приходите и основните разходи", "Да копираш бюджет на друг човек", "Да чакаш по-голям доход, преди да гледаш числата"], answer: 0, explanation: "Главата поставя яснотата пред размера на дохода. Първо виж потока и избери какво искаш да промениш; конкретни финансови решения изискват лична преценка." },
+  5: { question: "Как можеш да защитиш важното време през седмицата?", options: ["Да оставиш задачата за момент, в който си свободен", "Да приемаш всяка покана, за да не разочароваш никого", "Да поставиш конкретен блок и да кажеш учтиво „не“ на несъщественото"], answer: 2, explanation: "Времето се управлява чрез избори за вниманието и ангажиментите. Един ясно защитен блок е по-силен от неясно намерение." },
+  6: { question: "Какво означава „общуване с цел“ в контекста на книгата?", options: ["Да търсиш само хора, които са съгласни с теб", "Да избираш разговори и общности, от които можеш да учиш и към които можеш да допринасяш", "Да прекъснеш всички отношения, които не носят незабавна полза"], answer: 1, explanation: "Идеята е да наблюдаваш влиянието и да разширяваш съзидателните връзки постепенно, с уважение и конкретна любознателност." },
+  7: { question: "Кой избор най-добре представя „изкуството да живееш добре“?", options: ["Да отложиш всяка радост, докато постигнеш всичко", "Да купуваш повече неща, за да се чувстваш успешен", "Да правиш малки, осъзнати избори за качество, внимание и щедрост още сега"], answer: 2, explanation: "Финалната стратегия не е за показен разход. Тя свързва добрия живот с ценности, преживявания и умението да присъстваш в настоящето." }
+};
+
+const lessonScenarios = {
+  1: { type: "Бизнес казус", title: "Портфолио без перфектния момент", context: "Мира е самостоятелен дизайнер. Иска да обнови портфолиото си, но отлага, защото логото, текстовете и снимките още не са идеални. До края на месеца има възможност за нов клиент.", question: "Кой ход най-добре превежда желанието ѝ в цел?", options: ["Да изчака да освободи цял уикенд, преди да започне.", "Да избере една страница, да запази 25 минути утре и да я публикува като първа версия.", "Да започне нов курс за бранд дизайн, преди да реши какво да покаже."], answer: 1, explanation: "Стратегията за целите започва с ясен обхват, място в календара и първо действие. Първата версия не е финалът; тя е точката, от която получаваш реална обратна връзка.", consequences: ["Това намалява напрежението, но оставя целта без конкретен ден и първа стъпка.", "Това създава малък, видим резултат и прави следващото решение по-лесно.", "Новото знание може да е полезно, но тук рискува да замести действието по вече ясна задача."] },
+  2: { type: "Бизнес казус", title: "Повтарящият се клиентски сигнал", context: "Малък екип чува от няколко клиента, че началният им процес е неясен. Колегите казват, че вече са гледали достатъчно видеа за обслужване и проблемът ще се реши от само себе си.", question: "Кой ход превръща информацията в учене?", options: ["Да съберат още препоръки, без да пипат процеса.", "Да изберат един повтарящ се проблем, да говорят с два клиента и да тестват една промяна през следващата седмица.", "Да приемат, че клиентите просто не четат внимателно инструкциите."], answer: 1, explanation: "Знанието става полезно, когато го свържеш с наблюдение, малък експеримент и преглед на резултата. Така екипът учи от реалното си работно поле, не само от съвети.", consequences: ["Повече материал може да създаде усещане за подготовка, но не дава нов опит.", "Това събира конкретен сигнал и дава шанс за проверима промяна.", "Това прехвърля причината навън и пропуска възможност за учене."] },
+  3: { type: "Личен казус", title: "Трудният разговор", context: "Калин иска да поиска по-ясна роля в екипа си, но избягва разговора, защото се страхува да не звучи неподготвен. Той има една седмица до следващата среща с ръководителя си.", question: "Кой избор развива най-полезната способност?", options: ["Да изчака да се почувства напълно уверен, преди да насрочи среща.", "Да се сравнява с колеги, които говорят по-свободно.", "Да упражни за 15 минути структура: принос, факт, въпрос и желана следваща стъпка."], answer: 2, explanation: "Личното развитие се вижда в малка практика на умение, което увеличава стойността ти. Увереността често следва подготовката, а не я предхожда.", consequences: ["Чакането пази от моментен дискомфорт, но не изгражда ново умение.", "Сравнението може да покаже посока, но не е заместител на практика.", "Това тренира ясна комуникация и дава материал за следващ опит, дори разговорът да не е идеален."] },
+  4: { type: "Бизнес казус", title: "Неясният паричен поток", context: "Собственик на малко студио усеща напрежение в края на месеца, но не знае дали причината е в приходите, задължителните разходи или в непланирани покупки. Казусът е учебен и не е персонален финансов съвет.", question: "Кой първи ход е най-разумен?", options: ["Да спре всички разходи веднага, без да види цялата картина.", "Да опише приходите и основните категории разходи, после да насрочи кратък преглед за избор на следваща промяна.", "Да отложи прегледа, докато се появи по-голям приход."], answer: 1, explanation: "Финансовата стратегия започва с яснота, а не с паника или предположения. Само след като видиш потока, можеш да прецениш какво да промениш според собствената си ситуация.", consequences: ["Този ход може да създаде прибързана реакция, без да показва причината.", "Това превръща числата в обратна връзка и оставя място за съзнателно решение.", "Отлагането запазва несигурността и не дава нова информация."] },
+  5: { type: "Бизнес казус", title: "Важният проект между съобщенията", context: "Ръководител на екип трябва да подготви предложение, което ще влияе на следващото тримесечие. Всеки ден обаче нови чат съобщения и кратки задачи изместват работата до късно вечер.", question: "Кой избор защитава важната работа без да обещава невъзможен график?", options: ["Да приема всяко прекъсване и да наваксва вечер, когато остане енергия.", "Да обяви два кратки фокус блока, да определи кога отговаря на съобщения и да остави резерв за непредвидено.", "Да добави още задачи, за да се почувства по-ангажиран."], answer: 1, explanation: "Управлението на времето е избор за внимание и граници. Защитеният блок не игнорира екипа; той прави наличността и приоритетите по-ясни.", consequences: ["Това оставя най-важната задача на остатъчно време и повишава умората.", "Това дава реално място на важната работа и признава, че денят има прекъсвания.", "Повече задачи не решават конфликта между важно и спешно."] },
+  6: { type: "Личен казус", title: "Разговор, който разширява кръга", context: "Елена иска да развие малък онлайн проект. Тя забелязва човек от професионална общност, който има повече опит с подобни проекти, но не иска да звучи неискрено или да иска твърде много.", question: "Кой първи контакт отразява общуване с цел?", options: ["Да изпрати общо съобщение с молба другият човек да ѝ обясни целия си път.", "Да подготви един конкретен въпрос, да спомене какво вече е опитала и да благодари за всяка кратка насока.", "Да прекъсне всички разговори с хора, които не работят по същата тема."], answer: 1, explanation: "Съзидателното обкръжение се изгражда с уважителни, конкретни разговори и взаимност. Малкият добре подготвен контакт е по-полезен от голяма неясна молба.", consequences: ["Този подход прехвърля твърде много работа към другия човек и рядко създава добър разговор.", "Това показва любознателност, подготовка и уважение към времето на другия.", "Ограничаването на света ти не е същото като избиране на по-полезно влияние."] },
+  7: { type: "Личен казус", title: "Успех, който няма време да се преживее", context: "След успешен период Ники продължава да работи с високо темпо и казва, че ще се погрижи за близките си и за почивката си след следващия голям резултат. Тя усеща, че дните ѝ се сливат.", question: "Кой избор свързва амбицията с по-добър начин на живот?", options: ["Да отложи всяка пауза, докато всички цели са приключени.", "Да направи импулсивна голяма покупка, за да компенсира умората.", "Да запази един малък ритуал тази седмица: разговор без екрани, разходка или време за нещо, което ѝ носи качество."], answer: 2, explanation: "Изкуството да живееш добре не е награда след безкрайна работа. То е практиката да правиш малки избори за внимание, отношения и смисъл още сега.", consequences: ["Това оставя качеството на живота в неопределено бъдеще.", "Покупката може да донесе моментно усещане, но не адресира липсата на присъствие и ритъм.", "Това въвежда преживяване и грижа в реалната седмица, без да изисква голям разход или отказ от амбиция."] }
+};
+
+const glossaryTerms = [
+  { term: "Благотворителност", definition: "Навикът да отделяш част от ресурсите си за принос към други хора или кауза; в книгата е част от осъзнатото разпределение." },
+  { term: "Времеви блок", definition: "Предварително защитено място в календара за една важна дейност, вместо надежда, че ще остане свободно време." },
+  { term: "Дневник", definition: "Лично място за идеи, наблюдения и изводи. Целта му е да превърне преживяното в знание, което можеш да използваш." },
+  { term: "Знание", definition: "Информация, която търсиш целенасочено и проверяваш чрез практика, размисъл и наблюдение." },
+  { term: "Капитал", definition: "Ресурс, който може да се запази или вложи за създаване на бъдеща стойност. Терминът е представен образователно, не като инвестиционен съвет." },
+  { term: "Лично развитие", definition: "Работа върху умения, отношение и стандарти, така че да станеш по-способен да носиш стойност и отговорност." },
+  { term: "Мечта", definition: "Образ на желаното бъдеще. Тя дава посока, а целта я превежда в конкретна форма за действие." },
+  { term: "Обкръжение", definition: "Хората, разговорите и идеите около теб, които постепенно влияят на нормите, навиците и очакванията ти." },
+  { term: "Причина", definition: "Личният мотив зад целта — например грижа за близък, принос или желание за развитие. Той поддържа усилието, когато задачата е трудна." },
+  { term: "Размисъл", definition: "Съзнателен преглед на преживяното: какво сработи, какво не и какво ще пренесеш в следващото си действие." },
+  { term: "Сезони", definition: "Метафора за периодите на трудност, възможност, грижа и резултат. Не ги контролираш напълно, но можеш да избереш отговора си." },
+  { term: "Стойност", definition: "Полезността и качеството, които носиш чрез уменията и работата си. В книгата тя е по-съществена от броя вложени часове." },
+  { term: "Финансов план", definition: "Съзнателно разпределение на наличните средства според нужди, резерв, цели и лични ценности." },
+  { term: "Цел", definition: "Ясно решение за посока, свързано с причина, срок за преглед и първо реалистично действие." }
+];
+
+const quizQuestions = [
+  { question: "Коя стъпка прави една цел по-използваема още днес?", options: ["Да я пазиш в главата си", "Да добавиш първо малко действие и дата", "Да я направиш по-обща"], answer: 1, strategy: 1 },
+  { question: "Кое превръща новата информация в учене?", options: ["Да я препрочетеш много пъти", "Да я споделиш само като цитат", "Да я изпробваш в конкретна ситуация"], answer: 2, strategy: 2 },
+  { question: "С какво е разумно да започнеш, когато искаш да промениш навик?", options: ["С малко повторение, което можеш да направиш пак", "С обещание да не грешиш", "С чакане на силна мотивация"], answer: 0, strategy: 3 },
+  { question: "Каква е полезната първа задача при личните финанси?", options: ["Да не гледаш числата", "Да видиш приходите и основните разходи", "Да копираш чужд бюджет"], answer: 1, strategy: 4 },
+  { question: "Какво помага на важната задача да оцелее в седмицата?", options: ["Да ѝ оставиш конкретен блок време", "Да чакаш свободна вечер", "Да добавиш още десет задачи"], answer: 0, strategy: 5 }
+];
+
+const reflectionPrompts = [
+  "Кое малко действие вече знаеш, че ще направи деня ти по-добър?",
+  "Къде днес можеш да замениш „нямам време“ с по-честно изречение?",
+  "Коя цел би станала по-лека, ако избереш първа крачка под 20 минути?",
+  "На кого можеш да пишеш, за да направиш намерението си по-видимо?",
+  "Кое умение, ако го упражняваш спокойно, би ти помогнало след месец?",
+  "Кое нещо в деня ти заслужава признателност, преди да преминеш към следващото?"
+];
+
+const defaultState = {
+  completed: [],
+  theme: "light",
+  goal: null,
+  time: { sleep: 56, work: 40, other: 24 },
+  budget: { income: "", fixed: "", variable: "" },
+  week: [],
+  reflection: "",
+  reflectionPromptIndex: 0,
+  quizScore: null,
+  lessonQuizResults: {},
+  scenarioResults: {}
+};
+
+let state = loadState();
+let activeStrategyId = 1;
+let toastTimer;
+
+function loadState() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return { ...defaultState, ...stored };
+  } catch {
+    return { ...defaultState };
+  }
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 }).format(Math.round(value)) + " лв.";
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#039;", '"': "&quot;" }[char]));
+}
+
+function showToast(message) {
+  const toast = document.querySelector("#toast");
+  document.querySelector("#toast-message").textContent = message;
+  clearTimeout(toastTimer);
+  toast.classList.add("is-visible");
+  toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3100);
+}
+
+function renderStrategies() {
+  const container = document.querySelector("#strategy-list");
+  container.innerHTML = strategies.map(strategy => {
+    const completed = state.completed.includes(strategy.id);
+    return `
+      <article class="strategy-item ${completed ? "is-complete" : ""}">
+        <div class="strategy-index" aria-label="Стратегия ${strategy.id}">${String(strategy.id).padStart(2, "0")}</div>
+        <div class="strategy-main">
+          <div><p class="strategy-meta">Стратегия ${String(strategy.id).padStart(2, "0")}</p><h3 class="strategy-title">${strategy.title}</h3></div>
+          <p class="strategy-description">${strategy.short}</p>
+        </div>
+        <button class="strategy-open js-open-strategy" data-strategy-id="${strategy.id}" type="button" aria-label="Отвори урок: ${strategy.title}">↗</button>
+      </article>`;
+  }).join("");
+}
+
+function renderGlossary() {
+  const grid = document.querySelector("#glossary-grid");
+  grid.innerHTML = glossaryTerms.map((item, index) => `<article class="glossary-term" data-index="${String(index + 1).padStart(2, "0")}"><h3>${item.term}</h3><p>${item.definition}</p></article>`).join("");
+}
+
+function renderLessonQuiz(strategyId) {
+  const quiz = lessonMiniQuizzes[strategyId];
+  const form = document.querySelector("#dialog-quiz-form");
+  const feedback = document.querySelector("#dialog-quiz-feedback");
+  const previous = state.lessonQuizResults?.[strategyId];
+  form.innerHTML = `<fieldset><legend>${quiz.question}</legend><div class="mini-quiz-options">${quiz.options.map((option, index) => `<label class="mini-quiz-option"><input type="radio" name="dialog-quiz" value="${index}" ${previous && previous.selected === index ? "checked" : ""} /><span>${option}</span></label>`).join("")}</div></fieldset><button class="button button-outline" type="submit">Провери отговора <span aria-hidden="true">→</span></button>`;
+  feedback.className = "mini-quiz-feedback";
+  if (!previous) { feedback.innerHTML = ""; return; }
+  feedback.classList.add(previous.correct ? "is-correct" : "is-incorrect");
+  feedback.innerHTML = `<p><strong>${previous.correct ? "Верният отговор." : "Добър опит — върни се към идеята."}</strong> ${quiz.explanation}</p>`;
+}
+
+function renderLessonScenario(strategyId) {
+  const scenario = lessonScenarios[strategyId];
+  const form = document.querySelector("#dialog-scenario-form");
+  const feedback = document.querySelector("#dialog-scenario-feedback");
+  const previous = state.scenarioResults?.[strategyId];
+  document.querySelector("#dialog-scenario-type").textContent = scenario.type;
+  document.querySelector("#dialog-scenario-title").textContent = scenario.title;
+  form.innerHTML = `<fieldset><legend>${scenario.context}</legend><p class="scenario-context">${scenario.question}</p><div class="scenario-options">${scenario.options.map((option, index) => `<label class="scenario-option"><input type="radio" name="dialog-scenario" value="${index}" ${previous && previous.selected === index ? "checked" : ""} /><span>${option}</span></label>`).join("")}</div></fieldset><button class="button button-outline" type="submit">Виж последствията <span aria-hidden="true">→</span></button>`;
+  feedback.className = "scenario-feedback";
+  if (!previous) { feedback.innerHTML = ""; return; }
+  feedback.classList.add(previous.best ? "is-correct" : "is-incorrect");
+  feedback.innerHTML = `<p><strong>${previous.best ? "Най-полезният ход за тази стратегия." : "Възможен ход, но пропуска ключова идея."}</strong> ${scenario.consequences[previous.selected]} ${scenario.explanation}</p>`;
+}
+
+function updateProgress() {
+  const count = state.completed.length;
+  const pct = (count / strategies.length) * 100;
+  document.querySelector("#hero-progress-value").innerHTML = `${count} <small>/ 7</small>`;
+  document.querySelector("#hero-progress-line").style.width = `${pct}%`;
+  document.querySelector("#overall-completed").textContent = count;
+  const overallBar = document.querySelector(".progress-bar-large");
+  overallBar.setAttribute("aria-valuenow", count);
+  document.querySelector("#overall-progress-line").style.width = `${pct}%`;
+  const messages = [
+    "Отвори първата стратегия, за да направиш началото видимо.",
+    "Една ясна идея вече има място в твоята система.",
+    "Продължаваш с ритъм — не бързай, но не изпускай нишката.",
+    "Вече имаш основа. Избери урок, който ще подкрепи седмицата ти.",
+    "Виждаш посоката по-ясно. Остават няколко важни слоя.",
+    "Почти си събрал целия компас. Коя последна идея иска внимание?",
+    "Още една стратегия и картината ще бъде цяла.",
+    "Седем стратегии, но работата им продължава в малките ти избори."
+  ];
+  document.querySelector("#progress-message").textContent = messages[count];
+  document.querySelector("#completion-dots").innerHTML = strategies.map(strategy => `<span class="completion-dot ${state.completed.includes(strategy.id) ? "is-complete" : ""}" title="${strategy.title}">${String(strategy.id).padStart(2, "0")}</span>`).join("");
+}
+
+function openStrategy(id) {
+  const strategy = strategies.find(item => item.id === Number(id));
+  if (!strategy) return;
+  activeStrategyId = strategy.id;
+  document.querySelector("#dialog-number").textContent = String(strategy.id).padStart(2, "0");
+  document.querySelector("#dialog-kicker").textContent = `Стратегия ${String(strategy.id).padStart(2, "0")}`;
+  document.querySelector("#dialog-title").textContent = strategy.title;
+  document.querySelector("#dialog-summary").textContent = strategy.summary;
+  const note = lessonNotes[strategy.id];
+  document.querySelector("#dialog-deep-dive").innerHTML = `${note.paragraphs.map(paragraph => `<p>${paragraph}</p>`).join("")}<p class="lesson-check">${note.check}</p>`;
+  document.querySelector("#dialog-extended-learning").innerHTML = extendedLessons[strategy.id].map(item => `<article class="deep-card"><h4>${item.title}</h4><p>${item.text}</p></article>`).join("");
+  renderLessonQuiz(strategy.id);
+  renderLessonScenario(strategy.id);
+  const video = lessonVideos[strategy.id];
+  const videoLink = document.querySelector("#dialog-video-link");
+  document.querySelector("#dialog-video-title").textContent = video.title;
+  document.querySelector("#dialog-video-duration").textContent = `${video.duration} · от плейлиста „Seven Strategies“`;
+  videoLink.href = video.url;
+  videoLink.setAttribute("aria-label", `Отвори в YouTube: ${video.title}`);
+  document.querySelector("#dialog-points").innerHTML = strategy.points.map(point => `<li>${point}</li>`).join("");
+  document.querySelector("#dialog-example").textContent = strategy.example;
+  document.querySelector("#dialog-caution").textContent = strategy.caution;
+  document.querySelector("#dialog-exercise").textContent = strategy.exercise;
+  const completeButton = document.querySelector("#dialog-complete");
+  const isComplete = state.completed.includes(strategy.id);
+  completeButton.classList.toggle("is-complete", isComplete);
+  completeButton.innerHTML = isComplete ? "Урокът е завършен <span aria-hidden=\"true\">✓</span>" : "Маркирай като завършено <span aria-hidden=\"true\">✓</span>";
+  document.querySelector("#strategy-dialog").showModal();
+}
+
+function toggleStrategyCompletion() {
+  const index = state.completed.indexOf(activeStrategyId);
+  if (index === -1) {
+    state.completed.push(activeStrategyId);
+    state.completed.sort((a, b) => a - b);
+    showToast("Стратегията е добавена към твоя напредък.");
+  } else {
+    state.completed.splice(index, 1);
+    showToast("Стратегията е върната в активния ти списък.");
+  }
+  saveState();
+  renderStrategies();
+  updateProgress();
+  openStrategy(activeStrategyId);
+}
+
+function renderGoal() {
+  const result = document.querySelector("#goal-result");
+  if (!state.goal) {
+    result.classList.add("is-empty");
+    result.innerHTML = `<span class="goal-result-corner"></span><p class="goal-result-label">Твоята карта ще се появи тук</p><h4>Няма малка първа стъпка, когато я направиш днес.</h4>`;
+    return;
+  }
+  const date = new Date(`${state.goal.date}T12:00:00`).toLocaleDateString("bg-BG", { day: "numeric", month: "long", year: "numeric" });
+  result.classList.remove("is-empty");
+  result.innerHTML = `<span class="goal-result-corner"></span><p class="goal-result-label">Карта на целта · проверка ${date}</p><div class="goal-result-details"><h4>${escapeHTML(state.goal.name)}</h4><p><strong>Защо:</strong> ${escapeHTML(state.goal.why)}</p><p><strong>Първа стъпка:</strong> ${escapeHTML(state.goal.step)}</p></div>`;
+}
+
+function renderTime() {
+  const { sleep, work, other } = state.time;
+  document.querySelector("#time-sleep").value = sleep;
+  document.querySelector("#time-work").value = work;
+  document.querySelector("#time-other").value = other;
+  document.querySelector("#time-sleep-output").textContent = `${sleep} ч.`;
+  document.querySelector("#time-work-output").textContent = `${work} ч.`;
+  document.querySelector("#time-other-output").textContent = `${other} ч.`;
+  const free = Math.max(0, 168 - sleep - work - other);
+  document.querySelector("#time-result-number").textContent = free;
+  document.querySelector("#time-meter-fill").style.width = `${Math.min(100, (free / 70) * 100)}%`;
+}
+
+function renderBudget() {
+  document.querySelector("#income").value = state.budget.income;
+  document.querySelector("#fixed-costs").value = state.budget.fixed;
+  document.querySelector("#variable-costs").value = state.budget.variable;
+  const income = Number(state.budget.income);
+  const fixed = Number(state.budget.fixed);
+  const variable = Number(state.budget.variable);
+  const result = document.querySelector("#budget-result-number");
+  const note = document.querySelector("#budget-result-note");
+  if (!income && !fixed && !variable) {
+    result.textContent = "—";
+    note.textContent = "Въведи стойности, за да видиш картината.";
+    return;
+  }
+  const remaining = income - fixed - variable;
+  result.textContent = formatCurrency(remaining);
+  if (remaining < 0) note.textContent = "Разходите са над въведените приходи. Това е сигнал за преглед, не присъда.";
+  else if (remaining === 0) note.textContent = "Картината е балансирана на нула. Можеш да избираш какво да промениш.";
+  else note.textContent = `${income ? Math.round((remaining / income) * 100) : 0}% от въведените приходи остава за твой избор.`;
+}
+
+function renderWeek() {
+  const container = document.querySelector("#week-saved");
+  const inputs = [...document.querySelectorAll("#week-form input")];
+  state.week.forEach((task, index) => { if (inputs[index]) inputs[index].value = task.text; });
+  if (!state.week.length) { container.innerHTML = ""; return; }
+  container.innerHTML = state.week.map((task, index) => `<label class="saved-task ${task.done ? "is-done" : ""}"><input type="checkbox" data-task-index="${index}" ${task.done ? "checked" : ""} /><span>${escapeHTML(task.text)}</span></label>`).join("");
+}
+
+function renderReflection() {
+  const index = state.reflectionPromptIndex % reflectionPrompts.length;
+  document.querySelector("#reflection-prompt").textContent = reflectionPrompts[index];
+  document.querySelector("#reflection-note").value = state.reflection;
+}
+
+function renderQuiz() {
+  document.querySelector("#quiz-form").innerHTML = quizQuestions.map((item, qIndex) => `
+    <fieldset class="question-card">
+      <legend><span class="question-number">0${qIndex + 1}</span>${item.question}</legend>
+      <div class="answer-options">${item.options.map((option, index) => `<label class="answer-option"><input type="radio" name="question-${qIndex}" value="${index}" required /><span>${option}</span></label>`).join("")}</div>
+    </fieldset>`).join("") + `<button class="button button-amber" type="submit">Виж моята посока <span aria-hidden="true">↘</span></button>`;
+  if (typeof state.quizScore === "number") renderQuizResult(state.quizScore, false);
+}
+
+function renderQuizResult(score, toast) {
+  const result = document.querySelector("#quiz-result");
+  const percentage = Math.round((score / quizQuestions.length) * 100);
+  let title = "Добра основа за действие.";
+  let body = "Върни се към една стратегия, избери упражнението ѝ и му дай място още тази седмица.";
+  if (score === quizQuestions.length) { title = "Вече мислиш като човек с траектория."; body = "Избери най-полезния за теб урок и го повтори в реална ситуация. Знанието става твое чрез използване."; }
+  else if (score <= 2) { title = "Започни с една ясна нишка."; body = "Препоръчваме ти да отвориш Стратегия 01 — целите, защото тя прави следващите избори по-видими."; }
+  result.innerHTML = `<strong>${score} от ${quizQuestions.length} · ${percentage}%</strong><p><b>${title}</b> ${body}</p>`;
+  if (toast) showToast("Самооценката е запазена локално.");
+}
+
+function applyTheme() {
+  const isDark = state.theme === "dark";
+  document.body.classList.toggle("dark-theme", isDark);
+  document.querySelector(".theme-toggle")?.setAttribute("aria-label", isDark ? "Включи светъл режим" : "Включи тъмен режим");
+}
+
+function resetProgress() {
+  if (!window.confirm("Сигурни ли сте, че искате да изтриете всички локално запазени упражнения, бележки и напредък?")) return;
+  state = JSON.parse(JSON.stringify(defaultState));
+  saveState();
+  applyTheme();
+  renderAll();
+  showToast("Локалният прогрес е нулиран.");
+}
+
+function renderAll() {
+  renderStrategies();
+  renderGlossary();
+  updateProgress();
+  renderGoal();
+  renderTime();
+  renderBudget();
+  renderWeek();
+  renderReflection();
+  renderQuiz();
+}
+
+function bindEvents() {
+  document.addEventListener("click", event => {
+    const openButton = event.target.closest(".js-open-strategy");
+    if (openButton) openStrategy(openButton.dataset.strategyId);
+  });
+
+  document.querySelector(".dialog-close").addEventListener("click", () => document.querySelector("#strategy-dialog").close());
+  document.querySelector("#dialog-complete").addEventListener("click", toggleStrategyCompletion);
+  document.querySelector("#strategy-dialog").addEventListener("click", event => { if (event.target === event.currentTarget) event.currentTarget.close(); });
+  document.querySelector("#dialog-quiz-form").addEventListener("submit", event => {
+    event.preventDefault();
+    const quiz = lessonMiniQuizzes[activeStrategyId];
+    const selected = new FormData(event.currentTarget).get("dialog-quiz");
+    if (selected === null) { showToast("Избери един отговор, преди да провериш."); return; }
+    const answer = Number(selected);
+    state.lessonQuizResults = state.lessonQuizResults || {};
+    state.lessonQuizResults[activeStrategyId] = { selected: answer, correct: answer === quiz.answer };
+    saveState();
+    renderLessonQuiz(activeStrategyId);
+    showToast(answer === quiz.answer ? "Верният отговор е запазен." : "Отговорът е запазен — виж краткото обяснение.");
+  });
+  document.querySelector("#dialog-scenario-form").addEventListener("submit", event => {
+    event.preventDefault();
+    const scenario = lessonScenarios[activeStrategyId];
+    const selected = new FormData(event.currentTarget).get("dialog-scenario");
+    if (selected === null) { showToast("Избери ход, преди да видиш последствията."); return; }
+    const answer = Number(selected);
+    state.scenarioResults = state.scenarioResults || {};
+    state.scenarioResults[activeStrategyId] = { selected: answer, best: answer === scenario.answer };
+    saveState();
+    renderLessonScenario(activeStrategyId);
+    showToast(answer === scenario.answer ? "Решението е запазено като полезен ход." : "Решението е запазено — виж какво би подобрило следващия ход.");
+  });
+
+  document.querySelector("#goal-form").addEventListener("submit", event => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    state.goal = { name: form.get("goal-name").trim(), why: form.get("goal-why").trim(), date: form.get("goal-date"), step: form.get("goal-step").trim() };
+    saveState();
+    renderGoal();
+    showToast("Картата на целта е запазена на това устройство.");
+  });
+
+  ["sleep", "work", "other"].forEach(key => document.querySelector(`#time-${key}`).addEventListener("input", event => {
+    state.time[key] = Number(event.target.value);
+    saveState();
+    renderTime();
+  }));
+
+  [["income", "income"], ["fixed-costs", "fixed"], ["variable-costs", "variable"]].forEach(([selector, key]) => {
+    document.querySelector(`#${selector}`).addEventListener("input", event => {
+      state.budget[key] = event.target.value;
+      saveState();
+      renderBudget();
+    });
+  });
+
+  document.querySelector("#week-form").addEventListener("submit", event => {
+    event.preventDefault();
+    const values = [...event.currentTarget.querySelectorAll("input")].map(input => input.value.trim()).filter(Boolean);
+    if (!values.length) { showToast("Добави поне един приоритет за седмицата."); return; }
+    const existing = new Map(state.week.map(task => [task.text, task.done]));
+    state.week = values.map(text => ({ text, done: existing.get(text) || false }));
+    saveState();
+    renderWeek();
+    showToast("Приоритетите са запазени.");
+  });
+
+  document.querySelector("#week-saved").addEventListener("change", event => {
+    const index = Number(event.target.dataset.taskIndex);
+    if (Number.isNaN(index) || !state.week[index]) return;
+    state.week[index].done = event.target.checked;
+    saveState();
+    renderWeek();
+  });
+
+  document.querySelector("#new-reflection").addEventListener("click", () => {
+    state.reflectionPromptIndex = (state.reflectionPromptIndex + 1) % reflectionPrompts.length;
+    state.reflection = "";
+    saveState();
+    renderReflection();
+    document.querySelector("#reflection-status").textContent = "Нов въпрос е готов. Бележките остават само на това устройство.";
+  });
+  document.querySelector("#save-reflection").addEventListener("click", () => {
+    state.reflection = document.querySelector("#reflection-note").value.trim();
+    saveState();
+    document.querySelector("#reflection-status").textContent = state.reflection ? "Бележката е запазена локално." : "Полето е празно — няма какво да запазим още.";
+    if (state.reflection) showToast("Бележката ти е запазена.");
+  });
+  document.querySelectorAll(".js-open-reflection").forEach(button => button.addEventListener("click", () => {
+    document.querySelector("#reflection-note").focus({ preventScroll: true });
+    document.querySelector("#reflection-note").scrollIntoView({ behavior: "smooth", block: "center" });
+  }));
+
+  document.querySelector("#quiz-form").addEventListener("submit", event => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    let score = 0;
+    quizQuestions.forEach((question, index) => { if (Number(form.get(`question-${index}`)) === question.answer) score += 1; });
+    state.quizScore = score;
+    saveState();
+    renderQuizResult(score, true);
+  });
+
+  document.querySelector(".theme-toggle").addEventListener("click", () => {
+    state.theme = state.theme === "dark" ? "light" : "dark";
+    saveState();
+    applyTheme();
+  });
+
+  const header = document.querySelector(".site-header");
+  window.addEventListener("scroll", () => header.classList.toggle("is-scrolled", window.scrollY > 16), { passive: true });
+
+  const menuButton = document.querySelector(".menu-toggle");
+  const mobileNav = document.querySelector("#mobile-nav");
+  menuButton.addEventListener("click", () => {
+    const expanded = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!expanded));
+    mobileNav.classList.toggle("is-open", !expanded);
+  });
+  mobileNav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => { menuButton.setAttribute("aria-expanded", "false"); mobileNav.classList.remove("is-open"); }));
+
+  document.querySelector("#reset-progress").addEventListener("click", resetProgress);
+}
+
+applyTheme();
+renderAll();
+bindEvents();
+
+</script>
+  </body>
+</html>
